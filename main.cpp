@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
     g3x_SetExitFunction(Exit);     /* la fonction de sortie */
     g3x_SetDrawFunction(Draw);     /* la fonction de Dessin */
     g3x_SetAnimFunction(Anim);
+    /*Neil est passé par là*/
 
     /* boucle d'exécution principale */
     return g3x_MainStart();
