@@ -13,11 +13,13 @@
 
 #define NBPOINTS 50000
 
-std::vector<Shape*> shapes = std::vector<Shape*>(2);
+std::vector<Shape*> shapes = std::vector<Shape*>(3);
 
 static void Init(void) {
     shapes[0] = new Sphere(NBPOINTS);
     shapes[1] = new Cylinder(NBPOINTS);
+    shapes[2] = new Cone(NBPOINTS);
+
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -29,7 +31,7 @@ static void Anim(void) {
 static void Draw(void) {
     int i;
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 3; i++) {
         shapes[i]->draw();
     }
 }

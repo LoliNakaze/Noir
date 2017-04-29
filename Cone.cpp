@@ -9,17 +9,21 @@ Cone::Cone(int n){
     pts = std::vector<Vector*>(n);
     nor = std::vector<Normal*>(n);
 
+    /*Contour*/
     for (i = 0; i < (2*n/ 3); i++) {
         a = g3x_Rand_Delta(PI, PI);
-        z = g3x_Rand_Delta(0, 1);
+        z = g3x_Rand_Delta(1, 1);
 
-        pts[i] = new Vector(cos(a), sin(a) , z );
+        r = (-1/2)*z + 1;
+
+        pts[i] = new Vector(r * cos(a), r * sin(a) , z );
         nor[i] = new Vector(cos(a), sin(a) , 0 );
     }
 
+    /*Face INF*/
     for (; i < n; i++) {
         a = g3x_Rand_Delta(PI, PI);
-        z = ((g3x_Rand_Delta(0, 1) > 0) ? 1 : -1);
+        z = 0
         r = g3x_Rand_Delta(0.5, 0.5);
 
         pts[i] = new Vector( r * cos(a), r * sin(a) , z );
@@ -28,16 +32,13 @@ Cone::Cone(int n){
 
        
     }
-}
+}&
 
 
 
 
 bool Cone::contains(const Point &p) const {
-    if ( p.get_z() > 1 || p.get_z() < 1  || ( (p.get_x()*p.get_x()) + (p.get_y()*p.get_y()) > 1 ) ){
-        return false;
-    }
-    return true;
+    return false;
 }
 
 Cone::~Cone() {
