@@ -9,15 +9,14 @@
 #include "Shape.hpp"
 #include "Sphere.hpp"
 #include "Cylinder.hpp"
-#include "Point.h"
 
 #define NBPOINTS 50000
 
-std::vector<Shape*> shapes = std::vector<Shape*>(1);
+std::vector<Shape*> shapes = std::vector<Shape*>(2);
 
 static void Init(void) {
     shapes[0] = new Sphere(NBPOINTS);
-//    shapes[1] = Cylinder(NBPOINTS);
+    shapes[1] = new Cylinder(NBPOINTS);
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -27,10 +26,8 @@ static void Anim(void) {
 
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
-    int i;
-
-    for (i = 0; i < 1; i++) {
-        shapes[i]->draw();
+    for (Shape* shape: shapes) {
+        shape->draw();
     }
 }
 
@@ -55,10 +52,9 @@ int main(int argc, char **argv) {
     g3x_SetExitFunction(Exit);     /* la fonction de sortie */
     g3x_SetDrawFunction(Draw);     /* la fonction de Dessin */
     g3x_SetAnimFunction(Anim);
-    /*Neil est passé par là*/
 
     /* boucle d'exécution principale */
-//    return g3x_MainStart();
+    return g3x_MainStart();
 
     /* rien après ça */
 }

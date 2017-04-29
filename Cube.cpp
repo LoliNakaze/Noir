@@ -1,51 +1,69 @@
 #include "Cube.hpp"
+#include <math.h>
 
-Cube::Cube(int n)
-        : nbpoints(n) {
+Cube::Cube(int n) {
     int i;
+    nbpoints = n;
 
-    double a, b;
-    pts = std::vector<G3Xpoint>(n);
-    nor = std::vector<G3Xvector>(n);
+    double a, b, c;
+    pts = std::vector<Vector *>(n);
+    nor = std::vector<Normal *>(n);
 
-    for (i = 0; i < n / 2; i++) {
-        a = g3x_Rand_Delta(PI, PI);
-        z = g3x_Rand_Delta(0, 1);
+    for (i = 0; i < n; i++) {
 
-        pts[i][0] = nor[i][0] = cos(a);
-        pts[i][1] = nor[i][1] = sin(a);
-        pts[i][2] = z;
-        nor[i][2] = 0;
-    }
+        a = g3x_Rand_Delta(3, 3);
+        b = g3x_Rand_Delta(0, 1);
+        c = g3x_Rand_Delta(0, 1);
 
-    for (; i < n; i++) {
-        a = g3x_Rand_Delta(PI, PI);
-        z = ((g3x_Rand_Delta(0, 1) > 0) ? 1 : -1);
-        r = g3x_Rand_Delta(0.5, 0.5);
-
-        pts[i][0] = r * cos(a);
-        pts[i][1] = r * sin(a);
-        pts[i][2] = nor[i][2]
-        z;
-        nor[i][0] = nor[i][1] = 0;
+        switch (((int) a) + 1) {
+            case 1:
+                pts[i] = new Vector(1, b, c);
+                nor[i] = new Normal(1, 0, 0);
+                break;
+            case 2:
+                pts[i] = new Vector(-1, b, c);
+                nor[i] = new Normal(-1, 0, 0);
+                break;
+            case 3:
+                pts[i] = new Vector(b, 1, c);
+                nor[i] = new Normal(0, 1, 0);
+                break;
+            case 4:
+                pts[i] = new Vector(b, -1, c);
+                nor[i] = new Normal(0, -1, 0);
+                break;
+            case 5:
+                pts[i] = new Vector(b, c, 1);
+                nor[i] = new Normal(0, 0, 1);
+                break;
+            case 6:
+                pts[i] = new Vector(b, c, -1);
+                nor[i] = new Normal(b, c, -1);
+                break;
+            default:
+                break;
+        }
     }
 }
 
-void Cube::~Cube() {
-    delete pts;
-    delete nor;
+Cube::~Cube() {
 }
 
 void Cube::draw() {
     int i;
 
-    g3x_Material(G3Xr, .25, .25, .25, .25, .25);
+    float color[] = {1.0, 0.0, 0.0};
+    g3x_Material(color, .25, .25, .25, .25, .25);
 
     glBegin(GL_POINTS);
 
     for (i = 0; i < nbpoints; i++) {
-        glNormal3dv(nor[i]);
-        glVertex3dv(pts[i]);
+        glNormal3d(nor[i]->get_x(), nor[i]->get_y(), nor[i]->get_z());
+        glVertex3d(pts[i]->get_x(), pts[i]->get_y(), pts[i]->get_z());
     }
     glEnd();
+}
+
+bool Cube::contains(const Point &p) const {
+    return fabs(p.get_x()) <= 1.0 && fabs(p.get_y()) <= 1.0 && fabs(p.get_z()) <= 1.0;
 }

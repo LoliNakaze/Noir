@@ -48,3 +48,7 @@ void Cylinder::draw() {
     }
     glEnd();
 }
+
+bool Cylinder::contains(const Point &p) const {
+
+}
