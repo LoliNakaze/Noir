@@ -8,7 +8,8 @@ class Cylinder : public Shape {
 public:
     Cylinder(int n); /* Constructeur */
     ~Cylinder(); /* Destructeur */
-    bool contains(const Point& p) const;
+
+	bool contains(const Point& p) const;
     void draw() const;
 };
 

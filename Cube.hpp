@@ -9,7 +9,6 @@ public:
     Cube(int n); /* Constructeur */
     ~Cube(); /* Destructeur */
     bool contains(G3Xpoint p) const;
-    void draw() const;
 };
 
 #endif

@@ -49,21 +49,6 @@ Cube::Cube(int n) {
 Cube::~Cube() {
 }
 
-void Cube::draw() {
-    int i;
-
-    float color[] = {1.0, 0.0, 0.0};
-    g3x_Material(color, .25, .25, .25, .25, .25);
-
-    glBegin(GL_POINTS);
-
-    for (i = 0; i < nbpoints; i++) {
-        glNormal3d(nor[i]->get_x(), nor[i]->get_y(), nor[i]->get_z());
-        glVertex3d(pts[i]->get_x(), pts[i]->get_y(), pts[i]->get_z());
-    }
-    glEnd();
-}
-
 bool Cube::contains(const Point &p) const {
     return fabs(p.get_x()) <= 1.0 && fabs(p.get_y()) <= 1.0 && fabs(p.get_z()) <= 1.0;
 }
