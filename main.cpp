@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     /*Neil est passé par là*/
 
     /* boucle d'exécution principale */
-    return g3x_MainStart();
+//    return g3x_MainStart();
 
     /* rien après ça */
 }

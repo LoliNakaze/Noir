@@ -1,8 +1,8 @@
 #include "Sphere.hpp"
 
-Sphere::Sphere(int n)
-        : nbpoints(n) {
+Sphere::Sphere(int n) {
     int i;
+    nbpoints = n;
 
     double a, b;
     pts = std::vector<Vector*>(n);
