@@ -34,6 +34,10 @@ void Sphere::draw() {
     glEnd();
 }
 
+bool Sphere::contains(G3Xpoint p) {
+    G3X
+}
+
 void Sphere::~Sphere() {
     delete pts;
     delete nor;

@@ -6,6 +6,8 @@
 
 #include <g3x.h>
 #include "Shape.hpp"
+#include "Sphere.hpp"
+#include "Cylinder.hpp"
 
 #define NBPOINTS 50000
 
@@ -13,7 +15,7 @@ std::vector <Shape> shapes = std::vector<Shape>(2);
 
 static void Init(void) {
     shapes[0] = Sphere(NBPOINTS);
-    shapes[1] = Cylindre(NBPOINTS);
+    shapes[1] = Cylinder(NBPOINTS);
 }
 
 /*= FONCTION D'ANIMATION =*/

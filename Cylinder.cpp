@@ -25,8 +25,7 @@ Cylinder::Cylinder(int n)
 
         pts[i][0] = r * cos(a);
         pts[i][1] = r * sin(a);
-        pts[i][2] = nor[i][2]
-        z;
+        pts[i][2] = nor[i][2] = z;
         nor[i][0] = nor[i][1] = 0;
     }
 }

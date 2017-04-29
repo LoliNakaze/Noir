@@ -9,7 +9,7 @@ public:
 
     Sphere(int n); /* Constructeur */
     ~Sphere(); /* Destructeur */
-/*	const bool contains(G3Xpoint p); */
+    const bool contains(G3Xpoint p);
 };
 
 #endif
