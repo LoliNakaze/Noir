@@ -1,6 +1,6 @@
-#include "Cylinder.hpp"
+#include "Cone.hpp"
 
-Cylinder::Cylinder(int n){
+Cone::Cone(int n){
     int i;
     nbpoints = n;
 
@@ -33,12 +33,12 @@ Cylinder::Cylinder(int n){
 
 
 
-bool Cylinder::contains(const Point &p) const {
+bool Cone::contains(const Point &p) const {
     if ( p.get_z() > 1 || p.get_z() < 1  || ( (p.get_x()*p.get_x()) + (p.get_y()*p.get_y()) > 1 ) ){
         return false;
     }
     return true;
 }
 
-Cylinder::~Cylinder() {
+Cone::~Cone() {
 }
