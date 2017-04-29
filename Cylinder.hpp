@@ -10,7 +10,8 @@ public:
     Cylinder(int n); /* Constructeur */
     ~Cylinder(); /* Destructeur */
 
-/*	const bool contains(G3Xpoint p); */
+	bool contains(const Point& p) const;
+    void draw() const; 
 };
 
 #endif

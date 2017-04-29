@@ -11,13 +11,13 @@
 #include "Cylinder.hpp"
 #include "Point.h"
 
-#define NBPOINTS 50000
+#define NBPOINTS 1000000
 
-std::vector<Shape*> shapes = std::vector<Shape*>(1);
+std::vector<Shape*> shapes = std::vector<Shape*>(2);
 
 static void Init(void) {
     shapes[0] = new Sphere(NBPOINTS);
-//    shapes[1] = Cylinder(NBPOINTS);
+    shapes[1] = new Cylinder(NBPOINTS);
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -29,7 +29,7 @@ static void Anim(void) {
 static void Draw(void) {
     int i;
 
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < 2; i++) {
         shapes[i]->draw();
     }
 }
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     /*Neil est passé par là*/
 
     /* boucle d'exécution principale */
-//    return g3x_MainStart();
+   return g3x_MainStart();
 
     /* rien après ça */
 }
