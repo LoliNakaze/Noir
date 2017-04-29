@@ -8,14 +8,15 @@
 #include "Shape.hpp"
 #include "Sphere.hpp"
 #include "Cylinder.hpp"
+#include "Point.h"
 
 #define NBPOINTS 50000
 
-std::vector <Shape> shapes = std::vector<Shape>(2);
+std::vector<Shape*> shapes = std::vector<Shape*>(1);
 
 static void Init(void) {
-    shapes[0] = Sphere(NBPOINTS);
-    shapes[1] = Cylinder(NBPOINTS);
+    shapes[0] = new Sphere(NBPOINTS);
+//    shapes[1] = Cylinder(NBPOINTS);
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -27,7 +28,7 @@ static void Anim(void) {
 static void Draw(void) {
     int i;
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 1; i++) {
         shapes[i].draw();
     }
 }

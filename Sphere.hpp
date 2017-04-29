@@ -2,14 +2,15 @@
 #define __SPHERE
 
 #include <g3x.h>
-#include "Shape.h"
+#include "Shape.hpp"
+#include "Point.h"
 
 class Sphere : public Shape {
 public:
-
     Sphere(int n); /* Constructeur */
     ~Sphere(); /* Destructeur */
-    const bool contains(G3Xpoint p);
+    bool contains(const Point& p) const;
+    void draw() const;
 };
 
 #endif
