@@ -11,7 +11,7 @@
 #include "Cylinder.hpp"
 #include "Cube.hpp"
 
-#define NBPOINTS 500000
+#define NBPOINTS 50000
 
 std::vector<Shape *> shapes = std::vector<Shape *>(2);
 
@@ -28,8 +28,11 @@ static void Anim(void) {
 
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
-    for (Shape *shape: shapes) {
+/*    for (Shape *shape: shapes) {
         shape->draw();
+    }*/
+    for (int i = 0 ; i < 2 ; i++) {
+        shapes[i]->draw();
     }
 }
 

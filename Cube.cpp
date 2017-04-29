@@ -1,4 +1,5 @@
 #include "Cube.hpp"
+#include <iostream>
 #include <math.h>
 
 Cube::Cube(int n) {
@@ -41,6 +42,7 @@ Cube::Cube(int n) {
                 nor[i] = new Normal(b, c, -1);
                 break;
             default:
+                std::cout << ((int) a) + 1 << std::endl;
                 break;
         }
     }

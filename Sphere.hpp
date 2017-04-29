@@ -10,7 +10,6 @@ public:
     Sphere(int n); /* Constructeur */
     ~Sphere(); /* Destructeur */
     bool contains(const Point& p) const;
-    void draw() const;
 };
 
 #endif

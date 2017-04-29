@@ -22,26 +22,11 @@ Cylinder::Cylinder(int n) {
         r = g3x_Rand_Delta(0.5, 0.5);
 
         pts[i] = new Vector(r * cos(a), r * sin(a), z);
-
         nor[i] = new Vector(0, 0, z);
     }
 }
 
 
-void Cylinder::draw() const {
-    int i;
-
-    float color[] = {0.0, 1.0, 0.0};
-    g3x_Material(color, .25, .25, .25, .25, .25);
-
-    glBegin(GL_POINTS);
-
-    for (i = 0; i < nbpoints; i++) {
-        glNormal3d(nor[i]->get_x(), nor[i]->get_y(), nor[i]->get_z());
-        glVertex3d(pts[i]->get_x(), pts[i]->get_y(), pts[i]->get_z());
-    }
-    glEnd();
-}
 
 bool Cylinder::contains(const Point &p) const {
     if (p.get_z() > 1 || p.get_z() < 1 || ((p.get_x() * p.get_x()) + (p.get_y() * p.get_y()) > 1)) {
