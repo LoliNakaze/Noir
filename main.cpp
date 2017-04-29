@@ -11,7 +11,7 @@
 #include "Cylinder.hpp"
 #include "Point.h"
 
-#define NBPOINTS 1000000
+#define NBPOINTS 500000
 
 std::vector<Shape*> shapes = std::vector<Shape*>(2);
 
