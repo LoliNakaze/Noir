@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
     /* initialisation de la fenêtre graphique et paramétrage Gl */
     g3x_InitWindow(*argv, 768, 512);
 
-    /* définition des fonctions
+    /* définition des fonctions */
     g3x_SetInitFunction(Init);     /* la fonction de sortie */
     g3x_SetExitFunction(Exit);     /* la fonction de sortie */
     g3x_SetDrawFunction(Draw);     /* la fonction de Dessin */
