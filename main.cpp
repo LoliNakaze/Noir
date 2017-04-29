@@ -5,6 +5,7 @@
 /*=================================================================*/
 
 #include <g3x.h>
+#include <cstdio>
 #include "Shape.hpp"
 #include "Sphere.hpp"
 #include "Cylinder.hpp"
@@ -29,7 +30,7 @@ static void Draw(void) {
     int i;
 
     for (i = 0; i < 1; i++) {
-        shapes[i].draw();
+        shapes[i]->draw();
     }
 }
 
@@ -49,7 +50,7 @@ int main(int argc, char **argv) {
     /* initialisation de la fenêtre graphique et paramétrage Gl */
     g3x_InitWindow(*argv, 768, 512);
 
-    /* définition des fonctions */
+    /* définition des fonctions
     g3x_SetInitFunction(Init);     /* la fonction de sortie */
     g3x_SetExitFunction(Exit);     /* la fonction de sortie */
     g3x_SetDrawFunction(Draw);     /* la fonction de Dessin */
@@ -58,5 +59,6 @@ int main(int argc, char **argv) {
 
     /* boucle d'exécution principale */
     return g3x_MainStart();
+
     /* rien après ça */
 }

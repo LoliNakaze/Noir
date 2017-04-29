@@ -10,12 +10,11 @@ public:
     Shape() {
     }
 
-    ~Shape() {
+    virtual ~Shape() {
     }
 
-    virtual void draw() = 0;
-
-    virtual bool contains() = 0;
+    virtual void draw() const = 0;
+    virtual bool contains(const Point& p) const = 0;
 
 protected:
     int nbpoints;
