@@ -8,18 +8,21 @@
 #include <cstdio>
 #include "Shape.hpp"
 #include "Sphere.hpp"
+#include "Cone.hpp"
 #include "Cylinder.hpp"
-#include "Point.h"
+#include "Cube.hpp"
 
 #define NBPOINTS 50000
+#define NBSHAPE 1
 
-std::vector<Shape*> shapes = std::vector<Shape*>(3);
+
+std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
-    shapes[0] = new Sphere(NBPOINTS);
-    shapes[1] = new Cylinder(NBPOINTS);
-    shapes[2] = new Cone(NBPOINTS);
-
+    shapes[0] = new Cone(NBPOINTS);
+    // shapes[1] = new Cylinder(NBPOINTS);
+    // shapes[2] = new Cube(NBPOINTS);
+    // shapes[3] = new Cone(NBPOINTS);
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -29,9 +32,8 @@ static void Anim(void) {
 
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
-    int i;
 
-    for (i = 0; i < 3; i++) {
+    for (int i = 0 ; i < NBSHAPE ; i++) {
         shapes[i]->draw();
     }
 }
@@ -57,10 +59,9 @@ int main(int argc, char **argv) {
     g3x_SetExitFunction(Exit);     /* la fonction de sortie */
     g3x_SetDrawFunction(Draw);     /* la fonction de Dessin */
     g3x_SetAnimFunction(Anim);
-    /*Neil est passé par là*/
 
     /* boucle d'exécution principale */
-   return g3x_MainStart();
+    return g3x_MainStart();
 
     /* rien après ça */
 }

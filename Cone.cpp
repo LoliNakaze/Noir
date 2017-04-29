@@ -14,25 +14,25 @@ Cone::Cone(int n){
         a = g3x_Rand_Delta(PI, PI);
         z = g3x_Rand_Delta(1, 1);
 
-        r = (-1/2)*z + 1;
+        r = ((-1.0/2.0)*z) + 1;
 
         pts[i] = new Vector(r * cos(a), r * sin(a) , z );
-        nor[i] = new Vector(cos(a), sin(a) , 0 );
+        nor[i] = new Vector(cos(a), sin(a) , (sqrt(2))/2);
     }
 
     /*Face INF*/
     for (; i < n; i++) {
         a = g3x_Rand_Delta(PI, PI);
-        z = 0
+        z = 0;
         r = g3x_Rand_Delta(0.5, 0.5);
 
         pts[i] = new Vector( r * cos(a), r * sin(a) , z );
 
-        nor[i] = new Vector(0, 0 , z );
+        nor[i] = new Vector(0, 0 , -1 );
 
        
     }
-}&
+}
 
 
 

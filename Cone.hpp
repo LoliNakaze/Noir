@@ -1,5 +1,5 @@
-#ifndef __CYLINDRE
-#define __CYLINDRE
+#ifndef __CONE
+#define __CONE
 
 #include <g3x.h>
 #include "Shape.hpp"

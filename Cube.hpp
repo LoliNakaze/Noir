@@ -6,11 +6,10 @@
 
 class Cube : public Shape {
 public:
-
     Cube(int n); /* Constructeur */
     ~Cube(); /* Destructeur */
 
-/*	const bool contains(G3Xpoint p); */
+    bool contains(const Point &p) const;
 };
 
 #endif
