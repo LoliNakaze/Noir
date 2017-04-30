@@ -20,10 +20,11 @@
 std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
-    shapes[0] = new Cone(NBPOINTS);
-    // shapes[1] = new Cylinder(NBPOINTS);
-    // shapes[2] = new Cube(NBPOINTS);
-    // shapes[3] = new Cone(NBPOINTS);
+//    shapes[0] = new Cone(NBPOINTS);
+//    shapes[1] = new Cylinder(NBPOINTS);
+//    shapes[2] = new Cube(NBPOINTS);
+//    shapes[3] = new Cone(NBPOINTS);
+    shapes[0] = new Tore(NBPOINTS);
 }
 
 /*= FONCTION D'ANIMATION =*/
