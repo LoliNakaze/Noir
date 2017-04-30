@@ -3,6 +3,7 @@
 
 #include <g3x.h>
 #include "Shape.hpp"
+#include "Point.h"
 
 class Cylinder : public Shape {
 public:

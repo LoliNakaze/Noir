@@ -8,18 +8,22 @@
 #include <cstdio>
 #include "Shape.hpp"
 #include "Sphere.hpp"
+#include "Cone.hpp"
 #include "Cylinder.hpp"
 #include "Cube.hpp"
 #include "Tore.h"
 
 #define NBPOINTS 50000
+#define NBSHAPE 1
 
-std::vector<Shape *> shapes = std::vector<Shape *>(2);
+
+std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
-    shapes[0] = new Sphere(NBPOINTS);
-//    shapes[1] = new Cylinder(NBPOINTS);
-    shapes[1] = new Cube(NBPOINTS);
+    shapes[0] = new Cone(NBPOINTS);
+    // shapes[1] = new Cylinder(NBPOINTS);
+    // shapes[2] = new Cube(NBPOINTS);
+    // shapes[3] = new Cone(NBPOINTS);
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -29,10 +33,8 @@ static void Anim(void) {
 
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
-/*    for (Shape *shape: shapes) {
-        shape->draw();
-    }*/
-    for (int i = 0 ; i < 2 ; i++) {
+
+    for (int i = 0 ; i < NBSHAPE ; i++) {
         shapes[i]->draw();
     }
 }
