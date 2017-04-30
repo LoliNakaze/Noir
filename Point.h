@@ -12,7 +12,13 @@ public:
 
     ~Point();
 
+    bool is_visible() const;
+
+    void set_visibility(bool b);
+
     double squared_norm() const;
+
+    double squared_dist_to(const Point &p) const;
 
     double get_x() const;
 
@@ -24,6 +30,7 @@ private:
     double px;
     double py;
     double pz;
+    bool visibility;
 };
 
 typedef Point Vector, Normal;

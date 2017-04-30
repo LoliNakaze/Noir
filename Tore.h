@@ -7,6 +7,7 @@
 
 #include <g3x.h>
 #include "Shape.hpp"
+#include <math.h>
 
 class Tore : public Shape {
 public:

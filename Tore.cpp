@@ -7,8 +7,11 @@
 #define RI 0.1
 
 bool Tore::contains(const Point &p) const {
-    // TODO
-    return false;
+    double length = sqrt(p.squared_norm());
+    double a = cos(p.get_x() / length);
+    double b = cos(p.get_z() / length);
+
+    return p.squared_dist_to(Point(cos(a) * sin(b), sin(a) * sin(b), cos(b))) <= RI*RI;
 }
 
 Tore::~Tore() {
