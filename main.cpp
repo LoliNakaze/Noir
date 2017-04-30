@@ -10,6 +10,7 @@
 #include "Sphere.hpp"
 #include "Cylinder.hpp"
 #include "Cube.hpp"
+#include "Tore.h"
 
 #define NBPOINTS 50000
 
