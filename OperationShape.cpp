@@ -16,14 +16,13 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot) {
                 G3Xpoint tmp = {points2[i]->get_x(), points2[i]->get_y(), points2[i]->get_z()};
                 G3Xpoint res = {0, 0, 0};
 
-                g3x_ProdHMatPoint(s1.matrice_transformation_inverse, tmp, res);
+                g3x_ProdHMatPoint(s1->matrice_transformation_inverse, tmp, res);
 
                 if (s1->contains(Point(res[0], res[1], res[2]))) {
-                    points2[i]->visibility = true;
+                    points2[i]->set_visibility(true);
                 } else {
-                    points2[i]->visibility = false;
+                    points2[i]->set_visibility(false);
                 }
-
             }
 
 
@@ -37,77 +36,16 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot) {
                 g3x_ProdHMatPoint(s2->matrice_transformation_inverse, tmp, res);
 
                 if (s2->contains(Point(res[0], res[1], res[2]))) {
-                    points1[i]->visibility = true;
+                    points1[i]->set_visibility(true);
                 } else {
-                    points1[i]->visibility = false;
+                    points1[i]->set_visibility(false);
                 }
-
             }
-
-            // std::vector<Point> points1 = s2->get_points();
-
-            // for(int i = 0 ; i < s1->nbpoints ; i++){
-
-            //     if( s2.contains(     points1[i] * s2.matrice_transformation_inverse  ){
-            //         points1[i].visibility = true;
-            //     }
-            //     else{
-            //         points1[i].visibility = false;
-            //     }    
-
-            // }
-
-
-
             break;
-            // case UNION:
-            //    std::vector<Point> points2 = s2->get_points();
-
-            //     for(int i = 0 ; i < s2->nbpoints ; i++){
-
-            //         if( s1.contains(     points2[i] * s1.matrice_transformation_inverse  ){
-            //             points2[i].visibility = false;
-            //         }
-            //         else{
-            //             points2[i].visibility = true;
-            //         }
-
-            //     }
-
-            //     std::vector<Point> points1 = s2->get_points();
-
-            //     for(int i = 0 ; i < s1->nbpoints ; i++){
-
-            //         if( s2.contains(     points1[i] * s2.matrice_transformation_inverse  ){
-            //             points1[i].visibility = false;
-            //         }
-            //         else{
-            //             points1[i].visibility = true;
-            //         }
-
-            //     }
-
-            // break;
-
-            // case SUBTRACTION:
-            //    std::vector<Point> points2 = s2->get_points();
-            //     for(int i = 0 ; i < s2->nbpoints ; i++){
-            //         points2[i].visibility = false;
-            //     }
-
-            //     std::vector<Point> points1 = s2->get_points();
-
-            //     for(int i = 0 ; i < s1->nbpoints ; i++){
-            //         if( s2.contains(     points1[i] * s2.matrice_transformation_inverse  ){
-            //             points1[i].visibility = false;
-            //         }
-            //         else{
-            //             points1[i].visibility = true;
-            //         }
-            //     }
-
-            // break;
-
+        case UNION:
+            break;
+        case SUBTRACTION:
+            break;
     }
 }
 
@@ -117,31 +55,34 @@ OperationShape::~OperationShape() {
 bool OperationShape::contains(const Point &p) const {
     switch (operationType) {
         case INTERSECTION:
-            return shape1.contains(p) && shape2.contains(p);
+            return shape1->contains(p) && shape2->contains(p);
             break;
 
         case UNION:
-            return shape1.contains(p) || shape2.contains(p);
+            return shape1->contains(p) || shape2->contains(p);
             break;
 
         case SUBTRACTION:
-            return shape1.contains(p) && !shape2.contains(p);
+            return shape1->contains(p) && !shape2->contains(p);
             break;
     }
 }
 
-void draw() const {
+void OperationShape::draw() const {
     shape1->draw();
     shape2->draw();
 }
 
-std::vector<Point *> get_points() {
+std::vector<Point *> OperationShape::get_points() const {
     std::vector<Point *> operationPoints;
     std::vector<Point *> points1 = shape1->get_points();
-    std::vector<Point *> points2 = shape2->get_points();
+    int sizePoints1 = points1.size();
 
-    operationPoints.insert(operationPoints.end(), &points1[0], &points1[shape1->nbpointss1]);
-    operationPoints.insert(operationPoints.end(), &points2[0], &points2[shape2->nbpointss2]);
+    std::vector<Point *> points2 = shape2->get_points();
+    int sizePoints2 = points2.size();
+
+    operationPoints.insert(operationPoints.end(), &points1[0], &points1[sizePoints1]);
+    operationPoints.insert(operationPoints.end(), &points2[0], &points2[sizePoints2]);
 
     return operationPoints;
 }
