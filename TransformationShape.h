@@ -12,7 +12,7 @@
 
 class TransformationShape : public Shape {
 public:
-    TransformationShape(){};
+    TransformationShape() {};
 
     virtual ~TransformationShape() {
     }
@@ -21,21 +21,32 @@ public:
         return tr_shape->contains(p);
     };
 
-    void draw() const {
-        TransformationShape* tmp = dynamic_cast<TransformationShape*>(tr_shape);
-        if (tmp) {
-            tmp->draw();
-        } else {
-            tr_shape->draw();
-        }
+    Shape *origin_shape() const {
+        Shape *res = tr_shape;
+        TransformationShape *tmp;
+        while ((tmp = dynamic_cast<TransformationShape *>(res)))
+            res = tmp->tr_shape;
+        return res;
     }
 
-    virtual void apply_itransformation(G3Xhmat mat) const = 0;
+    std::vector<Point *> get_points() const {
+        return origin_shape()->get_points();
+    }
 
-    virtual void apply_transformation(G3Xhmat mat) const = 0;
+    void draw() const {
+        origin_shape()->draw();
+    }
+
+    virtual void apply_itransformation() const = 0;
+
+    virtual void apply_transformation() const = 0;
+
+    virtual void apply_transformation_init() const = 0;
+
+    virtual void apply_itransformation_init(G3Xhmat mat) const = 0;
 
 protected:
-    Shape* tr_shape;
+    Shape *tr_shape;
 };
 
 

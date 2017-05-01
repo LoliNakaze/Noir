@@ -4,7 +4,7 @@
 
 #include "RotationShape.h"
 
-void RotationShape::apply_itransformation(G3Xhmat mat) const {
+void RotationShape::apply_itransformation_init(G3Xhmat mat) const {
     G3Xhmat tmp, tmp2;
     g3x_MakeIdentity(tmp);
     g3x_MakeIdentity(tmp2);
@@ -14,12 +14,12 @@ void RotationShape::apply_itransformation(G3Xhmat mat) const {
     if (r_vector.get_z()) g3x_MakeRotationZ(tmp, -r_angle);
 
     g3x_ProdHMat(mat, tmp, tmp2);
-    G3Xcopymat (mat, tmp2);
+    G3Xcopymat(mat, tmp2);
 
     glRotatef(-r_angle, r_vector.get_x(), r_vector.get_y(), r_vector.get_z());
     TransformationShape *trShape = dynamic_cast<TransformationShape *>(tr_shape);
     if (trShape) {
-        trShape->apply_itransformation(mat);
+        trShape->apply_itransformation_init(mat);
     }
 }
 
@@ -28,6 +28,7 @@ RotationShape::RotationShape(double angle, const Vector vector, Shape *shape)
     tr_shape = shape;
 }
 
+/*
 void RotationShape::apply_transformation(G3Xhmat mat) const {
     G3Xhmat tmp, tmp2;
     g3x_MakeIdentity(tmp);
@@ -45,6 +46,18 @@ void RotationShape::apply_transformation(G3Xhmat mat) const {
     G3Xcopymat(mat, tmp2);
     glRotatef(r_angle, r_vector.get_x(), r_vector.get_y(), r_vector.get_z());
 }
+*/
+void RotationShape::apply_transformation() const {
+    ;// TODO
+}
 
 RotationShape::~RotationShape() {
+}
+
+void RotationShape::apply_transformation_init() const {
+    ; // TODO
+}
+
+void RotationShape::apply_itransformation() const {
+    ; // TODO
 }
