@@ -13,6 +13,8 @@
 #include "Cube.hpp"
 #include "Tore.h"
 #include "ScaleShape.h"
+#include "TranslationShape.h"
+#include "RotationShape.h"
 
 #define NBPOINTS 50000
 #define NBSHAPE 1
@@ -21,11 +23,11 @@
 std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
-//    shapes[0] = new Cone(NBPOINTS);
-//    shapes[1] = new Cylinder(NBPOINTS);
-//    shapes[2] = new Cube(NBPOINTS);
-//    shapes[3] = new Cone(NBPOINTS);
-    shapes[0] = new ScaleShape(Vector(2,2,2), new Tore(NBPOINTS));
+   // shapes[0] = new Cone(NBPOINTS);
+   // shapes[0] = new Cylinder(NBPOINTS);
+   // shapes[1] = new Cube(NBPOINTS);
+   // shapes[0] = new Cone(NBPOINTS);
+    shapes[0] = new TranslationShape(Vector(1,1,1), new Tore(NBPOINTS));
 }
 
 /*= FONCTION D'ANIMATION =*/

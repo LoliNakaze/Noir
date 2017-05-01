@@ -4,7 +4,6 @@ Cone::Cone(int n){
     int i;
     nbpoints = n;
 
-
     double a, z, r;
     pts = std::vector<Vector*>(n);
     nor = std::vector<Normal*>(n);
@@ -28,9 +27,7 @@ Cone::Cone(int n){
 
         pts[i] = new Vector( r * cos(a), r * sin(a) , z );
 
-        nor[i] = new Vector(0, 0 , -1 );
-
-       
+        nor[i] = new Vector(0, 0 , -1 );       
     }
 }
 
