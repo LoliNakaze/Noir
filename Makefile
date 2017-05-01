@@ -37,7 +37,7 @@ all : $(exec) clean
 	@echo "------------------------"
 
 # règle générique de création de l'executable xxx à partir de src/xxx.c (1 seul module)
-$(exec) : main.o Sphere.o Point.o
+$(exec) : main.o Sphere.o Point.o Cylinder.o Cube.o Tore.o RotationShape.o ScaleShape.o TranslationShape.o
 	@echo "assemblage [$^]->$@"
 	@$(CC) $^ $(lib) -o $@
 	@echo "------------------------"
