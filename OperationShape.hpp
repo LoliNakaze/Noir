@@ -4,7 +4,7 @@
 #include <g3x.h>
 #include "Shape.hpp"
 
-enum OperationType {UNION, INTERSECTION, SUBTRACTION}
+enum OperationType {UNION, INTERSECTION, SUBTRACTION};
 
 class OperationShape : public Shape {
 public:
@@ -13,6 +13,11 @@ public:
 
     bool contains(const Point &p) const;
 
+	void draw() const;
+
+	std::vector<Point*> get_points() const ;
+
+    
 protected:
 	Shape* shape1;    
 	Shape* shape2;    
