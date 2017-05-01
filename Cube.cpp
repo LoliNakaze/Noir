@@ -11,7 +11,8 @@ Cube::Cube(int n) {
     double a, b, c;
     pts = std::vector<Vector *>(n);
     nor = std::vector<Normal *>(n);
-
+   
+    
     for (i = 0; i < n; i++) {
 
         a = g3x_Rand_Delta(3, 3);

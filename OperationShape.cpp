@@ -49,11 +49,9 @@ bool OperationShape::contains(const Point &p) const {
 }
 
 void OperationShape::draw() const {
-    std::cerr << "Shape 1 draw" << std::endl;
+ 
     shape1->draw();
-    std::cerr << "Shape 2 draw" << std::endl;
     shape2->draw();
-    std::cerr << "End draw" << std::endl;
 }
 
 std::vector<Point *> OperationShape::get_points() const {
