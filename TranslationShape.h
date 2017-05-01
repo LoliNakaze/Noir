@@ -12,7 +12,7 @@ class TranslationShape : public TransformationShape {
 public:
     TranslationShape(const Vector translation, Shape* shape);
 
-    ~TranslationShape(){};
+    ~TranslationShape();
 
     void apply_itransformation() const;
 
@@ -20,6 +20,7 @@ public:
 
 private:
     const Vector tr_vector;
+    Shape* tr_shape;
 };
 
 

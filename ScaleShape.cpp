@@ -24,3 +24,6 @@ void ScaleShape::apply_transformation() const {
     }
     glScalef(tr_vector.get_x(), tr_vector.get_y(), tr_vector.get_z());
 }
+
+ScaleShape::~ScaleShape() {
+}

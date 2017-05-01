@@ -23,3 +23,6 @@ void RotationShape::apply_transformation() const {
     }
     glRotatef(r_angle, axis_x, axis_y, axis_z);
 }
+
+RotationShape::~RotationShape() {
+}

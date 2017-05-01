@@ -12,6 +12,7 @@
 #include "Cylinder.hpp"
 #include "Cube.hpp"
 #include "Tore.h"
+#include "ScaleShape.h"
 
 #define NBPOINTS 50000
 #define NBSHAPE 1
@@ -24,7 +25,7 @@ static void Init(void) {
 //    shapes[1] = new Cylinder(NBPOINTS);
 //    shapes[2] = new Cube(NBPOINTS);
 //    shapes[3] = new Cone(NBPOINTS);
-    shapes[0] = new Tore(NBPOINTS);
+    shapes[0] = new ScaleShape(Vector(2,2,2), new Tore(NBPOINTS));
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -36,7 +37,13 @@ static void Anim(void) {
 static void Draw(void) {
 
     for (int i = 0 ; i < NBSHAPE ; i++) {
+        glPushMatrix();
+        TransformationShape* tr_shape = dynamic_cast<TransformationShape*>(shapes[i]);
+        if (tr_shape)
+            tr_shape->apply_transformation();
+
         shapes[i]->draw();
+        glPopMatrix();
     }
 }
 

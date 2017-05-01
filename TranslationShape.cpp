@@ -23,3 +23,6 @@ void TranslationShape::apply_transformation() const {
     }
     glTranslatef(tr_vector.get_x(), tr_vector.get_y(), tr_vector.get_z());
 }
+
+TranslationShape::~TranslationShape() {
+}

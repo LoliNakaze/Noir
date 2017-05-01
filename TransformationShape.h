@@ -13,7 +13,8 @@ class TransformationShape : public Shape {
 public:
     TransformationShape(){};
 
-    virtual ~TransformationShape() = 0;
+    virtual ~TransformationShape() {
+    }
 
     bool contains(const Point &p) const {
         return tr_shape->contains(p);

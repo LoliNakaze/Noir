@@ -12,7 +12,7 @@ class ScaleShape : public TransformationShape{
 public:
     ScaleShape(const Vector scale, Shape* shape);
 
-    ~ScaleShape(){};
+    ~ScaleShape();
 
     void apply_itransformation() const;
 
@@ -20,6 +20,7 @@ public:
 
 private:
     const Vector tr_vector;
+    Shape* tr_shape;
 };
 
 #endif //PROJECT_SCALESHAPE_H

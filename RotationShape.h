@@ -12,7 +12,7 @@ class RotationShape : public TransformationShape{
 public:
     RotationShape(double angle, double x, double y, double z, Shape* shape);
 
-    ~RotationShape(){};
+    ~RotationShape();
 
     void apply_itransformation() const;
 
@@ -22,6 +22,7 @@ private:
     double axis_x;
     double axis_y;
     double axis_z;
+    Shape* tr_shape;
 };
 
 

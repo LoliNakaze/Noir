@@ -29,8 +29,10 @@ public:
 
         for (i = 0; i < nbpoints; i++) {
             if (pts[i]->is_visible()) {
-                glNormal3d(nor[i]->get_x(), nor[i]->get_y(), nor[i]->get_z());
-                glVertex3d(pts[i]->get_x(), pts[i]->get_y(), pts[i]->get_z());
+                G3Xvector normal = {nor[i]->get_x(), nor[i]->get_y(), nor[i]->get_z()};
+                G3Xpoint point = {pts[i]->get_x(), pts[i]->get_y(), pts[i]->get_z()};
+                glNormal3dv(normal);
+                glVertex3dv(point);
             }
         }
         glEnd();
