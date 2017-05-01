@@ -16,6 +16,7 @@ public:
 protected:
 	Shape* shape1;    
 	Shape* shape2;    
+	OperationType operationType;
 };
 
 #endif
