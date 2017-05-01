@@ -20,7 +20,6 @@ public:
 
 private:
     const Vector tr_vector;
-    Shape* tr_shape;
 };
 
 

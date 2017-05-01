@@ -6,6 +6,7 @@
 #define PROJECT_TRANSFORMATIONSHAPE_H
 
 #include <g3x.h>
+#include <iostream>
 #include "Point.h"
 #include "Shape.hpp"
 
@@ -21,7 +22,15 @@ public:
     };
 
     void draw() const {
-        tr_shape->draw();
+        fprintf(stderr, "Call draw\n");
+        std::cout << tr_shape << std::endl;
+        TransformationShape* tmp = dynamic_cast<TransformationShape*>(tr_shape);
+        if (tmp) {
+            tmp->draw();
+            fprintf(stderr, "End draw\n");
+        } else {
+            tr_shape->draw();
+        }
     }
 
     virtual void apply_itransformation() const = 0;

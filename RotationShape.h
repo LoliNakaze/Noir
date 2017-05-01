@@ -10,7 +10,7 @@
 
 class RotationShape : public TransformationShape{
 public:
-    RotationShape(double angle, double x, double y, double z, Shape* shape);
+    RotationShape(double angle, const Vector vector, Shape* shape);
 
     ~RotationShape();
 
@@ -19,10 +19,7 @@ public:
     void apply_transformation() const;
 private:
     double r_angle;
-    double axis_x;
-    double axis_y;
-    double axis_z;
-    Shape* tr_shape;
+    Vector r_vector;
 };
 
 

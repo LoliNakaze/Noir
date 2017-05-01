@@ -13,6 +13,7 @@
 #include "Cube.hpp"
 #include "Tore.h"
 #include "ScaleShape.h"
+#include "RotationShape.h"
 
 #define NBPOINTS 50000
 #define NBSHAPE 3
@@ -25,7 +26,7 @@ static void Init(void) {
     shapes[1] = new Cylinder(NBPOINTS);
 //    shapes[2] = new Cube(NBPOINTS);
 //    shapes[3] = new Cone(NBPOINTS);
-    shapes[0] = new ScaleShape(Vector(2, 2, 2), new Tore(NBPOINTS));
+    shapes[0] = new ScaleShape(Vector(2,2,2), new RotationShape(45., Vector(0,1,0), new Tore(NBPOINTS)));
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -41,7 +42,12 @@ static void Draw(void) {
         TransformationShape *tr_shape = dynamic_cast<TransformationShape *>(shapes[i]);
         if (tr_shape) {
             tr_shape->apply_transformation();
+            tr_shape->apply_itransformation();
             tr_shape->draw();
+
+            G3Xpoint point = {2,2,2};
+            std::cout << tr_shape->contains() << std::endl;
+
         } else {
             shapes[i]->draw();
         }

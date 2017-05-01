@@ -13,7 +13,8 @@ void TranslationShape::apply_itransformation() const {
 }
 
 TranslationShape::TranslationShape(const Vector translation, Shape *shape)
-        : tr_vector(translation), tr_shape(shape) {
+        : tr_vector(translation) {
+    tr_shape = shape;
 }
 
 void TranslationShape::apply_transformation() const {
