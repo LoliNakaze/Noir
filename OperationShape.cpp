@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 
+/*
 bool OperationShape::test_contains(G3Xhmat inv1, G3Xhmat mat2, std::vector<Point *> points1,
                                    std::vector<Point *> points2, bool b) {
     for (int i = 0; i < points2.size(); i++) {
@@ -14,7 +15,7 @@ bool OperationShape::test_contains(G3Xhmat inv1, G3Xhmat mat2, std::vector<Point
 
         points2[i]->set_visibility(b);
     }
-}
+}*/
 
 OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
         : shape1(s1), shape2(s2), operationType(ot) {
@@ -26,7 +27,7 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
         case INTERSECTION:
             points2 = s2->get_points();
             for (int i = 0; i < points2.size(); i++) {
-                g3x_ProdHMatPoint()
+                // g3x_ProdHMatPoint();
 
                 G3Xpoint tmp = {points2[i]->get_x(), points2[i]->get_y(), points2[i]->get_z()};
                 G3Xpoint res = {0, 0, 0};
@@ -98,7 +99,8 @@ bool OperationShape::contains_aux(G3Xhmat mat, Shape *shape, const Point &p) con
     if (cshape = dynamic_cast<CanonicShape *>(shape)) {
         g3x_ProdHMat(mat, cshape->matrice_transformation_inverse, tmp);
         G3Xpoint point = {0, 0, 0};
-        g3x_ProdHMatPoint(tmp, {p.get_x(), p.get_y(), p.get_z()}, point);
+        G3Xpoint raw = {p.get_x(), p.get_y(), p.get_z()};
+        g3x_ProdHMatPoint(tmp, raw, point);
         return cshape->contains(p);
     } else if (tshape = dynamic_cast<TransformationShape *>(shape)) {
         return contains_aux(mat, tshape->origin_shape(), p);
@@ -112,11 +114,11 @@ bool OperationShape::contains_aux(G3Xhmat mat, Shape *shape, const Point &p) con
             case SUBTRACTION:
                 return contains_aux(tmp, oshape->shape1, p) && !contains_aux(tmp, oshape->shape2, p);
             default:
-                cerr << "Unknown operation type : " << operationType << endl;
+                std::cerr << "Unknown operation type : " << operationType << std::endl;
                 return false;
         }
     } else {
-        cerr << "Unknown shape type in contains_aux" << endl;
+        std::cerr << "Unknown shape type in contains_aux" << std::endl;
         return false;
     }
 }
@@ -125,7 +127,7 @@ bool OperationShape::contains(const Point &p) const {
     G3Xhmat mat;
     g3x_MakeIdentity(mat);
 
-    return contains_aux(mat, this, p);
+    return contains_aux(mat, (Shape*) this, p);
 }
 
 void OperationShape::draw() const {

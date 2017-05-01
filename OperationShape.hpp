@@ -3,6 +3,8 @@
 
 #include <g3x.h>
 #include "Shape.hpp"
+#include "CanonicShape.h"
+#include "TransformationShape.h"
 
 enum OperationType {
     UNION, INTERSECTION, SUBTRACTION
@@ -24,7 +26,7 @@ private:
     Shape *shape2;
     OperationType operationType;
 
-    bool contains_aux(G3Xhmat mat, Shape* shape, const Point &p) const;
+    bool contains_aux(G3Xhmat mat, Shape *shape, const Point &p) const;
 };
 
 #endif

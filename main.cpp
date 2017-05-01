@@ -38,9 +38,7 @@ static void Init(void) {
 
     shapes[7] = new RotationShape( 45.0, Vector(1,0,0) ,(new TranslationShape(Vector(-1,-1,0) , new Cone(NBPOINTS) ))); 
 
-
     shapes[8] = new TranslationShape(Vector(1,2,0) , (new OperationShape(new Cube(NBPOINTS), new Cone(NBPOINTS), INTERSECTION)));
-
 
 //    shapes[0] = new ScaleShape(Vector(2, 2, 2), new RotationShape(45., Vector(0, 1, 0), new Tore(NBPOINTS)));
 }
