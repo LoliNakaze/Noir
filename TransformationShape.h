@@ -9,28 +9,22 @@
 #include "Point.h"
 #include "Shape.hpp"
 
-#define TR_TRANSLATE 1
-#define TR_ROTATE 2
-#define TR_SCALE 3
-
 class TransformationShape : public Shape {
 public:
-    TransformationShape(int type, const Vector vector, const Shape *shape);
+    TransformationShape(){};
 
-    ~TransformationShape();
+    virtual ~TransformationShape() = 0;
 
-    bool contains(const Point &p) const;
+    bool contains(const Point &p) const {
+        return tr_shape->contains(p);
+    };
 
-    std::vector<Vector *> get_points() const;
+    virtual void apply_itransformation() const = 0;
 
-    void apply_itransformation() const;
+    virtual void apply_transformation() const = 0;
 
-private:
-    const int tr_type;
-    const Vector tr_vector;
-    const Shape *tr_shape;
-
-    void apply_transformation() const;
+protected:
+    Shape* tr_shape;
 };
 
 

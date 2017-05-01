@@ -34,9 +34,6 @@ Cone::Cone(int n){
     }
 }
 
-
-
-
 bool Cone::contains(const Point &p) const {
     long ray = ((-1.0/2.0) * p.get_z()) + 1;
     if (p.get_z() > 2 || p.get_z() < 0 || 
