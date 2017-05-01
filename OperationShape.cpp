@@ -2,50 +2,35 @@
 #include <iostream>
 #include <math.h>
 
-OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot) {
-
-    shape1 = s1;
-    shape2 = s2;
-    operationType = ot;
+OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
+        : shape1(s1), shape2(s2), operationType(ot) {
 
     switch (ot) {
         case INTERSECTION:
             std::vector<Point *> points2 = s2->get_points();
-            int sizePoints2 = points2.size();
-            for (int i = 0; i < sizePoints2; i++) {
+            for (int i = 0; i < points2.size(); i++) {
                 G3Xpoint tmp = {points2[i]->get_x(), points2[i]->get_y(), points2[i]->get_z()};
                 G3Xpoint res = {0, 0, 0};
 
                 g3x_ProdHMatPoint(s1->matrice_transformation_inverse, tmp, res);
 
-                if (s1->contains(Point(res[0], res[1], res[2]))) {
-                    points2[i]->set_visibility(true);
-                } else {
-                    points2[i]->set_visibility(false);
-                }
+                points2[i]->set_visibility(s1->contains(Point(res[0], res[1], res[2])));
             }
 
-
             std::vector<Point *> points1 = s1->get_points();
-
-            int sizePoints1 = points1.size();
-            for (int i = 0; i < sizePoints1; i++) {
+            for (int i = 0; i < points1.size(); i++) {
                 G3Xpoint tmp = {points1[i]->get_x(), points1[i]->get_y(), points1[i]->get_z()};
                 G3Xpoint res = {0, 0, 0};
 
                 g3x_ProdHMatPoint(s2->matrice_transformation_inverse, tmp, res);
 
-                if (s2->contains(Point(res[0], res[1], res[2]))) {
-                    points1[i]->set_visibility(true);
-                } else {
-                    points1[i]->set_visibility(false);
-                }
+                points1[i]->set_visibility(s2->contains(Point(res[0], res[1], res[2])));
             }
             break;
-        case UNION:
+/*        case UNION:
             break;
         case SUBTRACTION:
-            break;
+            break;*/
     }
 }
 
@@ -56,21 +41,19 @@ bool OperationShape::contains(const Point &p) const {
     switch (operationType) {
         case INTERSECTION:
             return shape1->contains(p) && shape2->contains(p);
-            break;
-
         case UNION:
             return shape1->contains(p) || shape2->contains(p);
-            break;
-
         case SUBTRACTION:
             return shape1->contains(p) && !shape2->contains(p);
-            break;
     }
 }
 
 void OperationShape::draw() const {
+    std::cerr << "Shape 1 draw" << std::endl;
     shape1->draw();
+    std::cerr << "Shape 2 draw" << std::endl;
     shape2->draw();
+    std::cerr << "End draw" << std::endl;
 }
 
 std::vector<Point *> OperationShape::get_points() const {
