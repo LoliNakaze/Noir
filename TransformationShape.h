@@ -34,7 +34,10 @@ public:
     }
 
     void draw() const {
+        glPushMatrix();
+        apply_transformation();
         origin_shape()->draw();
+        glPopMatrix();
     }
 
     virtual void apply_itransformation() const = 0;

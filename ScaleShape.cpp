@@ -4,6 +4,20 @@
 
 #include "ScaleShape.h"
 
+static void init_inversion_matrix(const Vector scale, Shape *shape) {
+    G3Xhmat mat;
+    g3x_MakeIdentity(mat);
+    g3x_MakeHomothetieXYZ(mat, 1 / scale.get_x(), 1 / scale.get_y(), 1 / scale.get_z());
+
+    Shape *origin = shape;
+    if (TransformationShape *tmp = dynamic_cast<TransformationShape *>(shape)) {
+        tmp->apply_itransformation_init(mat);
+        origin = tmp->origin_shape();
+    }
+
+    G3Xcopymat(origin->matrice_transformation_inverse, mat);
+}
+
 void ScaleShape::apply_itransformation_init(G3Xhmat mat) const {
     double sx = 1 / tr_vector.get_x();
     double sy = 1 / tr_vector.get_y();
@@ -16,7 +30,7 @@ void ScaleShape::apply_itransformation_init(G3Xhmat mat) const {
     g3x_MakeHomothetieXYZ(tmp, sx, sy, sz);
 
     g3x_ProdHMat(mat, tmp, tmp2);
-    G3Xcopymat (mat, tmp2);
+    G3Xcopymat(mat, tmp2);
 
 
     glScalef(sx, sy, sz);
@@ -29,28 +43,26 @@ void ScaleShape::apply_itransformation_init(G3Xhmat mat) const {
 ScaleShape::ScaleShape(const Vector scale, Shape *shape)
         : tr_vector(scale) {
     tr_shape = shape;
+
+    apply_transformation_init();
+    init_inversion_matrix(scale, shape);
 }
 
 void ScaleShape::apply_itransformation() const {
-    ; // TODO
-}
+    double sx = 1 / tr_vector.get_x();
+    double sy = 1 / tr_vector.get_y();
+    double sz = 1 / tr_vector.get_z();
 
-static void init_inversion_matrix(const Vector scale, Shape* shape) {
-    G3Xhmat mat;
-    g3x_MakeIdentity(mat);
-    g3x_MakeHomothetieXYZ(mat, 1/scale.get_x(), 1/scale.get_y(), 1/scale.get_z());
+    glScalef(sx, sy, sz);
 
-    Shape* origin = shape;
-    if(TransformationShape* tmp = dynamic_cast<TransformationShape*>(shape)) {
-        tmp->apply_itransformation_init(mat);
-        origin = tmp->origin_shape();
+    TransformationShape *trShape = dynamic_cast<TransformationShape *> (tr_shape);
+    if (trShape) {
+        trShape->apply_itransformation();
     }
-
-    G3Xcopymat(origin->matrice_transformation_inverse, mat);
 }
 
 void ScaleShape::apply_transformation_init() const {
-    Shape* shape = origin_shape();
+    Shape *shape = origin_shape();
 
     G3Xhmat mat, tmpmat;
     g3x_MakeIdentity(mat);

@@ -16,7 +16,7 @@ void TranslationShape::apply_itransformation_init(G3Xhmat mat) const {
     g3x_MakeTranslationXYZ(tmp, tx, ty, tz);
 
     g3x_ProdHMat(mat, tmp, tmp2);
-    G3Xcopymat (mat, tmp2);
+    G3Xcopymat(mat, tmp2);
 
     glTranslatef(tx, ty, tz);
 
@@ -26,13 +26,13 @@ void TranslationShape::apply_itransformation_init(G3Xhmat mat) const {
     }
 }
 
-static void init_inversion_matrix(const Vector translation, Shape* shape) {
+static void init_inversion_matrix(const Vector translation, Shape *shape) {
     G3Xhmat mat;
     g3x_MakeIdentity(mat);
     g3x_MakeTranslationXYZ(mat, -translation.get_x(), -translation.get_y(), -translation.get_z());
 
-    Shape* origin = shape;
-    if(TransformationShape* tmp = dynamic_cast<TransformationShape*>(shape)) {
+    Shape *origin = shape;
+    if (TransformationShape *tmp = dynamic_cast<TransformationShape *>(shape)) {
         tmp->apply_itransformation_init(mat);
         origin = tmp->origin_shape();
     }
@@ -57,19 +57,12 @@ TranslationShape::TranslationShape(const Vector translation, Shape *shape)
         : tr_vector(translation) {
     tr_shape = shape;
 
-    std::cerr << "Regular transformation" << std::endl;
     apply_transformation_init();
-    std::cerr << "Inverse transformation" << std::endl;
     init_inversion_matrix(translation, shape);
-    std::cerr << "Object created" << std::endl;
 }
 
 void TranslationShape::apply_transformation_init() const {
-    std::cerr << "Transformation init" << std::endl;
-
-    Shape* shape = origin_shape();
-
-    std::cerr << shape << std::endl;
+    Shape *shape = origin_shape();
 
     G3Xhmat mat, tmpmat;
     g3x_MakeIdentity(mat);
