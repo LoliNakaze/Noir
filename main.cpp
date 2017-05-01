@@ -25,7 +25,7 @@ std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
 
-    
+
     // shapes[0] = new TranslationShape(Vector(5, 0, 0), new TranslationShape(Vector(2, 0, 0), new Sphere(NBPOINTS)));
     shapes[0] = new Sphere(NBPOINTS) ;
     shapes[1] = new TranslationShape(Vector(1,0,0) , new Cylinder(NBPOINTS) );

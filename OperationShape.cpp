@@ -50,7 +50,7 @@ bool OperationShape::contains(const Point &p) const {
 
 void OperationShape::draw() const {
  
-    shape1->draw();
+shape1->draw();
     shape2->draw();
 }
 
@@ -59,6 +59,7 @@ std::vector<Point *> OperationShape::get_points() const {
     std::vector<Point *> points1 = shape1->get_points();
     int sizePoints1 = points1.size();
 
+draw();
     std::vector<Point *> points2 = shape2->get_points();
     int sizePoints2 = points2.size();
 
