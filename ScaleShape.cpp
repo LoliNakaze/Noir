@@ -9,7 +9,16 @@ void ScaleShape::apply_itransformation(G3Xhmat mat) const {
     double sy = 1 / tr_vector.get_y();
     double sz = 1 / tr_vector.get_z();
 
-    g3x_MakeHomothetieXYZ(mat, sx, sy, sz);
+    G3Xhmat tmp, tmp2;
+    g3x_MakeIdentity(tmp);
+    g3x_MakeIdentity(tmp2);
+
+    g3x_MakeHomothetieXYZ(tmp, sx, sy, sz);
+
+    g3x_ProdHMat(mat, tmp, tmp2);
+    G3Xcopymat (mat, tmp2);
+
+
     glScalef(sx, sy, sz);
     TransformationShape *trShape = dynamic_cast<TransformationShape *> (tr_shape);
     if (trShape) {
@@ -27,12 +36,18 @@ void ScaleShape::apply_transformation(G3Xhmat mat) const {
     double sy = tr_vector.get_y();
     double sz = tr_vector.get_z();
 
+    G3Xhmat tmp, tmp2;
+    g3x_MakeIdentity(tmp);
+    g3x_MakeIdentity(tmp2);
+
     TransformationShape *trShape = dynamic_cast<TransformationShape *> (tr_shape);
     if (trShape) {
-        trShape->apply_transformation(mat);
+        trShape->apply_transformation(tmp);
     }
 
     g3x_MakeHomothetieXYZ(mat, sx, sy, sz);
+    g3x_ProdHMat(tmp, mat, tmp2);
+    G3Xcopymat(mat, tmp2);
     glScalef(sx, sy, sz);
 }
 
