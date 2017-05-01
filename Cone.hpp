@@ -2,9 +2,10 @@
 #define __CONE
 
 #include <g3x.h>
-#include "Shape.hpp"
+#include "CanonicShape.h"
+#include "Point.h"
 
-class Cone : public Shape {
+class Cone : public CanonicShape {
 public:
 
     Cone(int n); /* Constructeur */

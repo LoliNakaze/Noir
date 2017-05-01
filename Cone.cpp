@@ -4,6 +4,8 @@ Cone::Cone(int n){
     int i;
     nbpoints = n;
 
+    initShape();
+
     double a, z, r;
     pts = std::vector<Vector*>(n);
     nor = std::vector<Normal*>(n);

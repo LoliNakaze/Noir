@@ -2,10 +2,10 @@
 #define __SPHERE
 
 #include <g3x.h>
-#include "Shape.hpp"
+#include "CanonicShape.h"
 #include "Point.h"
 
-class Sphere : public Shape {
+class Sphere : public CanonicShape {
 public:
     Sphere(int n); /* Constructeur */
     ~Sphere(); /* Destructeur */

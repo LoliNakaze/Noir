@@ -2,9 +2,9 @@
 #define __CUBE
 
 #include <g3x.h>
-#include "Shape.hpp"
+#include "CanonicShape.h"
 
-class Cube : public Shape {
+class Cube : public CanonicShape {
 public:
     Cube(int n); /* Constructeur */
     ~Cube(); /* Destructeur */

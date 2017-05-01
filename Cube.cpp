@@ -6,6 +6,8 @@ Cube::Cube(int n) {
     int i;
     nbpoints = n;
 
+    initShape();
+
     double a, b, c;
     pts = std::vector<Vector *>(n);
     nor = std::vector<Normal *>(n);

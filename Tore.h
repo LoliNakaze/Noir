@@ -6,10 +6,10 @@
 #define PROJECT_TORE_H
 
 #include <g3x.h>
-#include "Shape.hpp"
+#include "CanonicShape.h"
 #include <math.h>
 
-class Tore : public Shape {
+class Tore : public CanonicShape {
 public:
     Tore(int n); /* Constructeur */
     ~Tore(); /* Destructeur */

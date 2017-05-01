@@ -14,9 +14,13 @@ public:
 
     ~RotationShape();
 
-    void apply_itransformation(G3Xhmat mat) const;
+    void apply_itransformation_init(G3Xhmat mat) const;
 
-    void apply_transformation(G3Xhmat mat) const;
+    void apply_transformation() const;
+
+    void apply_transformation_init() const;
+
+    void apply_itransformation() const;
 private:
     double r_angle;
     Vector r_vector;

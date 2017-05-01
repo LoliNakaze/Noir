@@ -24,6 +24,7 @@ Tore::~Tore() {
 
 Tore::Tore(int n) {
     int i;
+    initShape();
     nbpoints = n;
 
     double r1, r2;

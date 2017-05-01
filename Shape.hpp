@@ -15,34 +15,17 @@ public:
 
     virtual bool contains(const Point &p) const = 0;
 
-    std::vector<Vector *> get_points() const {
-        return pts;
+    void initShape() {
+        g3x_MakeIdentity(matrice_transformation);
+        g3x_MakeIdentity(matrice_transformation_inverse);
     }
 
-    void draw() const {
-        printf("draw de shape");
-        int i;
+    virtual std::vector<Point *> get_points() const = 0;
 
-        float color[] = {1.0, 0.0, 0.0};
-        g3x_Material(color, .25, .25, .25, .25, .25);
+    virtual void draw() const = 0;
 
-        glBegin(GL_POINTS);
-
-        for (i = 0; i < nbpoints; i++) {
-            if (pts[i]->is_visible()) {
-                G3Xvector normal = {nor[i]->get_x(), nor[i]->get_y(), nor[i]->get_z()};
-                G3Xpoint point = {pts[i]->get_x(), pts[i]->get_y(), pts[i]->get_z()};
-                glNormal3dv(normal);
-                glVertex3dv(point);
-            }
-        }
-        glEnd();
-    }
-
-protected:
-    int nbpoints;
-    std::vector<Vector *> pts;
-    std::vector<Normal *> nor;
+    G3Xhmat matrice_transformation;
+    G3Xhmat matrice_transformation_inverse;
 };
 
 #endif

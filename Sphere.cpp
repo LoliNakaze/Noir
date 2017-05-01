@@ -4,6 +4,8 @@ Sphere::Sphere(int n) {
     int i;
     nbpoints = n;
 
+    initShape();
+
     double a, b;
     pts = std::vector<Vector*>(n);
     nor = std::vector<Normal*>(n);
