@@ -17,17 +17,18 @@
 #include "RotationShape.h"
 
 #define NBPOINTS 50000
-#define NBSHAPE 1
+#define NBSHAPE 3
 
 
 std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
-   // shapes[0] = new Cone(NBPOINTS);
-   // shapes[0] = new Cylinder(NBPOINTS);
-   // shapes[1] = new Cube(NBPOINTS);
-   // shapes[0] = new Cone(NBPOINTS);
-    shapes[0] = new TranslationShape(Vector(1,1,1), new Tore(NBPOINTS));
+
+    shapes[2] = new Cone(NBPOINTS);
+    shapes[1] = new Cylinder(NBPOINTS);
+//    shapes[2] = new Cube(NBPOINTS);
+//    shapes[3] = new Cone(NBPOINTS);
+    shapes[0] = new ScaleShape(Vector(2, 2, 2), new Tore(NBPOINTS));
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -38,13 +39,15 @@ static void Anim(void) {
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
 
-    for (int i = 0 ; i < NBSHAPE ; i++) {
+    for (int i = 0; i < NBSHAPE; i++) {
         glPushMatrix();
-        TransformationShape* tr_shape = dynamic_cast<TransformationShape*>(shapes[i]);
-        if (tr_shape)
+        TransformationShape *tr_shape = dynamic_cast<TransformationShape *>(shapes[i]);
+        if (tr_shape) {
             tr_shape->apply_transformation();
-
-        shapes[i]->draw();
+            tr_shape->draw();
+        } else {
+            shapes[i]->draw();
+        }
         glPopMatrix();
     }
 }

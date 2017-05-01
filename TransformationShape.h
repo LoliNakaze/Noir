@@ -20,6 +20,10 @@ public:
         return tr_shape->contains(p);
     };
 
+    void draw() const {
+        tr_shape->draw();
+    }
+
     virtual void apply_itransformation() const = 0;
 
     virtual void apply_transformation() const = 0;
