@@ -21,7 +21,10 @@ public:
     };
 
     void draw() const {
+    	printf("pré draw de transformationshape\n");
         tr_shape->draw();
+    	printf("post draw de transformationshape\n");
+
     }
 
     virtual void apply_itransformation() const = 0;
