@@ -14,9 +14,9 @@ public:
 
     ~TranslationShape();
 
-    void apply_itransformation() const;
+    void apply_itransformation(G3Xhmat mat) const;
 
-    void apply_transformation() const;
+    void apply_transformation(G3Xhmat mat) const;
 
 private:
     const Vector tr_vector;

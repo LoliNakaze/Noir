@@ -29,7 +29,7 @@ Cylinder::Cylinder(int n) {
 
 
 bool Cylinder::contains(const Point &p) const {
-    if (p.get_z() > 1 || p.get_z() < 1 || ((p.get_x() * p.get_x()) + (p.get_y() * p.get_y()) > 1)) {
+    if (p.get_z() > 1 || p.get_z() < -1 || ((p.get_x() * p.get_x()) + (p.get_y() * p.get_y()) > 1)) {
         return false;
     }
     return true;

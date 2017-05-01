@@ -4,11 +4,16 @@
 
 #include "TranslationShape.h"
 
-void TranslationShape::apply_itransformation() const {
-    glTranslatef(-tr_vector.get_x(), -tr_vector.get_y(), -tr_vector.get_z());
+void TranslationShape::apply_itransformation(G3Xhmat mat) const {
+    double tx = -tr_vector.get_x();
+    double ty = -tr_vector.get_y();
+    double tz = -tr_vector.get_z();
+
+    g3x_MakeTranslationXYZ(mat, tx, ty, tz);
+    glTranslatef(tx, ty, tz);
     TransformationShape* shape = dynamic_cast<TransformationShape*>(tr_shape);
     if (shape) {
-        shape->apply_itransformation();
+        shape->apply_itransformation(mat);
     }
 }
 
@@ -17,12 +22,17 @@ TranslationShape::TranslationShape(const Vector translation, Shape *shape)
     tr_shape = shape;
 }
 
-void TranslationShape::apply_transformation() const {
+void TranslationShape::apply_transformation(G3Xhmat mat) const {
+    double tx = tr_vector.get_x();
+    double ty = tr_vector.get_y();
+    double tz = tr_vector.get_z();
+
     TransformationShape* shape = dynamic_cast<TransformationShape*>(tr_shape);
     if (shape) {
-        shape->apply_transformation();
+        shape->apply_transformation(mat);
     }
-    glTranslatef(tr_vector.get_x(), tr_vector.get_y(), tr_vector.get_z());
+    g3x_MakeTranslationXYZ(mat, tx, ty, tz);
+    glTranslatef(tx, ty, tz);
 }
 
 TranslationShape::~TranslationShape() {

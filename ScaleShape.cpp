@@ -2,14 +2,18 @@
 // Created by nakaze on 01/05/17.
 //
 
-#include <cstdio>
 #include "ScaleShape.h"
 
-void ScaleShape::apply_itransformation() const {
-    glScalef(1/tr_vector.get_x(), 1/tr_vector.get_y(), 1/tr_vector.get_z());
-    TransformationShape* trShape = dynamic_cast<TransformationShape*> (tr_shape);
+void ScaleShape::apply_itransformation(G3Xhmat mat) const {
+    double sx = 1 / tr_vector.get_x();
+    double sy = 1 / tr_vector.get_y();
+    double sz = 1 / tr_vector.get_z();
+
+    g3x_MakeHomothetieXYZ(mat, sx, sy, sz);
+    glScalef(sx, sy, sz);
+    TransformationShape *trShape = dynamic_cast<TransformationShape *> (tr_shape);
     if (trShape) {
-        trShape->apply_itransformation();
+        trShape->apply_itransformation(mat);
     }
 }
 
@@ -18,12 +22,18 @@ ScaleShape::ScaleShape(const Vector scale, Shape *shape)
     tr_shape = shape;
 }
 
-void ScaleShape::apply_transformation() const {
-    TransformationShape* trShape = dynamic_cast<TransformationShape*> (tr_shape);
+void ScaleShape::apply_transformation(G3Xhmat mat) const {
+    double sx = tr_vector.get_x();
+    double sy = tr_vector.get_y();
+    double sz = tr_vector.get_z();
+
+    TransformationShape *trShape = dynamic_cast<TransformationShape *> (tr_shape);
     if (trShape) {
-        trShape->apply_transformation();
+        trShape->apply_transformation(mat);
     }
-    glScalef(tr_vector.get_x(), tr_vector.get_y(), tr_vector.get_z());
+
+    g3x_MakeHomothetieXYZ(mat, sx, sy, sz);
+    glScalef(sx, sy, sz);
 }
 
 ScaleShape::~ScaleShape() {

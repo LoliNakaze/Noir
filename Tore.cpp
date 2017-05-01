@@ -2,6 +2,7 @@
 // Created by nakaze on 30/04/17.
 //
 
+#include <iostream>
 #include "Tore.h"
 
 #define RI 0.1
@@ -9,9 +10,13 @@
 bool Tore::contains(const Point &p) const {
     double length = sqrt(p.squared_norm());
     double a = atan2(p.get_y(), p.get_x());
-    double b = cos(p.get_z() / length);
+    double b = acos(p.get_z() / length);
 
-    return p.squared_dist_to(Point(cos(a) * sin(b), sin(a) * sin(b), cos(b))) <= RI*RI;
+    std::cout << a << " " << b << std::endl;
+
+    double d = p.squared_dist_to(Point(cos(a) * sin(b), sin(a) * sin(b), cos(b)));
+    std::cout << d << " <= " << RI * RI << std::endl;
+    return d <= RI * RI;
 }
 
 Tore::~Tore() {

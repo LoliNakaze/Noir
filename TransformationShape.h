@@ -30,9 +30,9 @@ public:
         }
     }
 
-    virtual void apply_itransformation() const = 0;
+    virtual void apply_itransformation(G3Xhmat mat) const = 0;
 
-    virtual void apply_transformation() const = 0;
+    virtual void apply_transformation(G3Xhmat mat) const = 0;
 
 protected:
     Shape* tr_shape;
