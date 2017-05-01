@@ -20,6 +20,7 @@ public:
     }
 
     void draw() const {
+        printf("draw de shape");
         int i;
 
         float color[] = {1.0, 0.0, 0.0};

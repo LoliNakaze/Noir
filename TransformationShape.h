@@ -22,12 +22,9 @@ public:
     };
 
     void draw() const {
-        fprintf(stderr, "Call draw\n");
-        std::cout << tr_shape << std::endl;
         TransformationShape* tmp = dynamic_cast<TransformationShape*>(tr_shape);
         if (tmp) {
             tmp->draw();
-            fprintf(stderr, "End draw\n");
         } else {
             tr_shape->draw();
         }
