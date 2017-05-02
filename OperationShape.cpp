@@ -2,7 +2,7 @@
 #include <iostream>
 #include <math.h>
 
-void OperationShape::test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool b) {
+void OperationShape::test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool negation) {
     G3Xhmat tmp;
     CanonicShape *cshape;
     TransformationShape *tshape;
@@ -17,14 +17,14 @@ void OperationShape::test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool b) {
 
             g3x_ProdHMatPoint(tmp, origin, scaled);
 
-            points[i]->set_visibility(b && s1->contains(Point(scaled[0], scaled[1], scaled[2])));
+            points[i]->set_visibility(!negation && s1->contains(Point(scaled[0], scaled[1], scaled[2])));
         }
     } else if (tshape = dynamic_cast<TransformationShape *>(s2)) {
-        test_contains(s1, tshape->origin_shape(), mat2, b);
+        test_contains(s1, tshape->origin_shape(), mat2, negation);
     } else if (oshape = dynamic_cast<OperationShape *>(s2)) {
         g3x_ProdHMat(mat2, oshape->matrice_transformation, tmp);
-        test_contains(s1, oshape->shape1, tmp, b);
-        test_contains(s1, oshape->shape2, tmp, b);
+        test_contains(s1, oshape->shape1, tmp, negation);
+        test_contains(s1, oshape->shape2, tmp, negation);
     }
 }
 
