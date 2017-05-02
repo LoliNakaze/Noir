@@ -22,7 +22,7 @@ void OperationShape::test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool b) {
     } else if (tshape = dynamic_cast<TransformationShape *>(s2)) {
         test_contains(s1, tshape->origin_shape(), mat2, b);
     } else if (oshape = dynamic_cast<OperationShape *>(s2)) {
-        g3x_ProdHMat(mat2, oshape->matrice_transformation_inverse, tmp);
+        g3x_ProdHMat(mat2, oshape->matrice_transformation, tmp);
         test_contains(s1, oshape->shape1, tmp, b);
         test_contains(s1, oshape->shape2, tmp, b);
     }
