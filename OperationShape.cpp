@@ -2,84 +2,56 @@
 #include <iostream>
 #include <math.h>
 
-/*
-bool OperationShape::test_contains(G3Xhmat inv1, G3Xhmat mat2, std::vector<Point *> points1,
-                                   std::vector<Point *> points2, bool b) {
-    for (int i = 0; i < points2.size(); i++) {
-        G3Xpoint origin = {points2[i]->get_x(), points2[i]->get_y(), points2[i]->get_z()};
-        G3Xpoint scaled = {0, 0, 0};
-        G3Xpoint res = {0, 0, 0};
+void OperationShape::test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool b) {
+    G3Xhmat tmp;
+    CanonicShape *cshape;
+    TransformationShape *tshape;
+    OperationShape *oshape;
 
-        g3x_ProdHMatPoint(mat2, origin, scaled);
-        g3x_ProdHMatPoint(inv1, scaled, res);
+    if (cshape = dynamic_cast<CanonicShape *>(s2)) {
+        std::vector<Point *> points = cshape->get_points();
+        g3x_ProdHMat(mat2, cshape->matrice_transformation, tmp);
+        for (int i = 0; i < points.size(); i++) {
+            G3Xpoint origin = {points[i]->get_x(), points[i]->get_y(), points[i]->get_z()};
+            G3Xpoint scaled = {0, 0, 0};
 
-        points2[i]->set_visibility(b);
+            g3x_ProdHMatPoint(tmp, origin, scaled);
+
+            points[i]->set_visibility(b && s1->contains(Point(scaled[0], scaled[1], scaled[2])));
+        }
+    } else if (tshape = dynamic_cast<TransformationShape *>(s2)) {
+        test_contains(s1, tshape->origin_shape(), mat2, b);
+    } else if (oshape = dynamic_cast<OperationShape *>(s2)) {
+        g3x_ProdHMat(mat2, oshape->matrice_transformation_inverse, tmp);
+        test_contains(s1, oshape->shape1, tmp, b);
+        test_contains(s1, oshape->shape2, tmp, b);
     }
-}*/
+}
 
 OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
         : shape1(s1), shape2(s2), operationType(ot) {
-
-    std::vector<Point *> points1;
-    std::vector<Point *> points2;
+    G3Xhmat mat;
 
     switch (ot) {
         case INTERSECTION:
-            points2 = s2->get_points();
-            for (int i = 0; i < points2.size(); i++) {
-                // g3x_ProdHMatPoint();
+            g3x_MakeIdentity(mat);
+            test_contains(s1, s2, mat, true);
 
-                G3Xpoint tmp = {points2[i]->get_x(), points2[i]->get_y(), points2[i]->get_z()};
-                G3Xpoint res = {0, 0, 0};
-
-                g3x_ProdHMatPoint(s1->matrice_transformation_inverse, tmp, res);
-
-                points2[i]->set_visibility(s1->contains(Point(res[0], res[1], res[2])));
-            }
-
-            points1 = s1->get_points();
-            for (int i = 0; i < points1.size(); i++) {
-                G3Xpoint tmp = {points1[i]->get_x(), points1[i]->get_y(), points1[i]->get_z()};
-                G3Xpoint res = {0, 0, 0};
-
-                g3x_ProdHMatPoint(s2->matrice_transformation_inverse, tmp, res);
-
-                points1[i]->set_visibility(s2->contains(Point(res[0], res[1], res[2])));
-            }
+            g3x_MakeIdentity(mat);
+            test_contains(s2, s1, mat, true);
             break;
         case UNION:
-            points2 = s2->get_points();
-            for (int i = 0; i < points2.size(); i++) {
-                G3Xpoint tmp = {points2[i]->get_x(), points2[i]->get_y(), points2[i]->get_z()};
-                G3Xpoint res = {0, 0, 0};
+            g3x_MakeIdentity(mat);
+            test_contains(s1, s2, mat, false);
 
-                g3x_ProdHMatPoint(s1->matrice_transformation_inverse, tmp, res);
-
-                points2[i]->set_visibility(!s1->contains(Point(res[0], res[1], res[2])));
-            }
-
-            points1 = s1->get_points();
-            for (int i = 0; i < points1.size(); i++) {
-                G3Xpoint tmp = {points1[i]->get_x(), points1[i]->get_y(), points1[i]->get_z()};
-                G3Xpoint res = {0, 0, 0};
-
-                g3x_ProdHMatPoint(s2->matrice_transformation_inverse, tmp, res);
-
-                points1[i]->set_visibility(!s2->contains(Point(res[0], res[1], res[2])));
-            }
+            g3x_MakeIdentity(mat);
+            test_contains(s2, s1, mat, false);
             break;
         case SUBTRACTION:
-            points1 = s1->get_points();
-            for (int i = 0; i < points1.size(); i++) {
-                G3Xpoint tmp = {points1[i]->get_x(), points1[i]->get_y(), points1[i]->get_z()};
-                G3Xpoint res = {0, 0, 0};
+            g3x_MakeIdentity(mat);
+            test_contains(s2, s1, mat, false);
 
-                g3x_ProdHMatPoint(s2->matrice_transformation_inverse, tmp, res);
-
-                points1[i]->set_visibility(!s2->contains(Point(res[0], res[1], res[2])));
-            }
-
-            points2 = s2->get_points();
+            std::vector<Point *> points2 = s2->get_points();
             for (int i = 0; i < points2.size(); i++) {
                 points2[i]->set_visibility(false);
             }
@@ -127,7 +99,7 @@ bool OperationShape::contains(const Point &p) const {
     G3Xhmat mat;
     g3x_MakeIdentity(mat);
 
-    return contains_aux(mat, (Shape*) this, p);
+    return contains_aux(mat, (Shape *) this, p);
 }
 
 void OperationShape::draw() const {
@@ -140,7 +112,6 @@ std::vector<Point *> OperationShape::get_points() const {
     std::vector<Point *> points1 = shape1->get_points();
     int sizePoints1 = points1.size();
 
-draw();
     std::vector<Point *> points2 = shape2->get_points();
     int sizePoints2 = points2.size();
 
