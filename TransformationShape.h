@@ -17,9 +17,7 @@ public:
     virtual ~TransformationShape() {
     }
 
-    bool contains(const Point &p) const {
-        return tr_shape->contains(p);
-    };
+    virtual bool contains(const Point &p) const = 0;
 
     Shape *origin_shape() const {
         Shape *res = tr_shape;

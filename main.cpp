@@ -37,11 +37,8 @@ static void Init(void) {
     shapes[6] = new ScaleShape(Vector(2, 2, 2), (new TranslationShape(Vector(0, -3, 0), new Sphere(NBPOINTS))));
 
     shapes[7] = new RotationShape(45.0, Vector(1, 0, 0), (new TranslationShape(Vector(-1, -1, 0), new Cone(NBPOINTS))));
-    shapes[8] = new TranslationShape(Vector(1, 2, 0),
-                                     (new OperationShape(new Cube(NBPOINTS),
-                                                         new OperationShape(new Cube(NBPOINTS), new Cone(NBPOINTS),
-                                                                            UNION),
-                                                         INTERSECTION)));
+    shapes[8] = new OperationShape(new Cube(NBPOINTS), new Cone(NBPOINTS),
+                                   INTERSECTION);
 
 //    shapes[0] = new ScaleShape(Vector(2, 2, 2), new RotationShape(45., Vector(0, 1, 0), new Tore(NBPOINTS)));
 }
@@ -54,13 +51,7 @@ static void Anim(void) {
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
     for (int i = 0; i < NBSHAPE; i++) {
-        glPushMatrix();
-        TransformationShape *tr_shape = dynamic_cast<TransformationShape *>(shapes[i]);
-        if (tr_shape) {
-            tr_shape->apply_transformation();
-        }
         shapes[i]->draw();
-        glPopMatrix();
     }
 }
 

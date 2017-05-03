@@ -2,7 +2,7 @@
 #include <iostream>
 #include <math.h>
 
-void OperationShape::test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool negation) {
+void OperationShape::set_operation(Shape *s1, Shape *s2, G3Xhmat mat2, bool negation) {
     G3Xhmat tmp;
     CanonicShape *cshape;
     TransformationShape *tshape;
@@ -17,14 +17,15 @@ void OperationShape::test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool nega
 
             g3x_ProdHMatPoint(tmp, origin, scaled);
 
-            points[i]->set_visibility(!negation && s1->contains(Point(scaled[0], scaled[1], scaled[2])));
+            points[i]->set_visibility(
+                    points[i]->is_visible() && !negation && s1->contains(Point(scaled[0], scaled[1], scaled[2])));
         }
     } else if (tshape = dynamic_cast<TransformationShape *>(s2)) {
-        test_contains(s1, tshape->origin_shape(), mat2, negation);
+        set_operation(s1, tshape->origin_shape(), mat2, negation);
     } else if (oshape = dynamic_cast<OperationShape *>(s2)) {
         g3x_ProdHMat(mat2, oshape->matrice_transformation, tmp);
-        test_contains(s1, oshape->shape1, tmp, negation);
-        test_contains(s1, oshape->shape2, tmp, negation);
+        set_operation(s1, oshape->shape1, tmp, negation);
+        set_operation(s1, oshape->shape2, tmp, negation);
     }
 }
 
@@ -35,21 +36,21 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
     switch (ot) {
         case INTERSECTION:
             g3x_MakeIdentity(mat);
-            test_contains(s1, s2, mat, true);
+            set_operation(s1, s2, mat, true);
 
             g3x_MakeIdentity(mat);
-            test_contains(s2, s1, mat, true);
+            set_operation(s2, s1, mat, true);
             break;
         case UNION:
             g3x_MakeIdentity(mat);
-            test_contains(s1, s2, mat, false);
+            set_operation(s1, s2, mat, false);
 
             g3x_MakeIdentity(mat);
-            test_contains(s2, s1, mat, false);
+            set_operation(s2, s1, mat, false);
             break;
         case SUBTRACTION:
             g3x_MakeIdentity(mat);
-            test_contains(s2, s1, mat, false);
+            set_operation(s2, s1, mat, false);
 
             std::vector<Point *> points2 = s2->get_points();
             for (int i = 0; i < points2.size(); i++) {
@@ -96,10 +97,18 @@ bool OperationShape::contains_aux(G3Xhmat mat, Shape *shape, const Point &p) con
 }
 
 bool OperationShape::contains(const Point &p) const {
-    G3Xhmat mat;
-    g3x_MakeIdentity(mat);
-
-    return contains_aux(mat, (Shape *) this, p);
+//    G3Xhmat mat;
+//    g3x_MakeIdentity(mat);
+//
+//    return contains_aux(mat, (Shape *) this, p);
+    switch (operationType) {
+        case INTERSECTION:
+            return shape1->contains(p) && shape2->contains(p);
+        case UNION:
+            return shape1->contains(p) || shape2->contains(p);
+        case SUBTRACTION:
+            return shape1->contains(p) && !shape2->contains(p);
+    }
 }
 
 void OperationShape::draw() const {

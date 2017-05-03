@@ -26,8 +26,7 @@ private:
     Shape *shape2;
     OperationType operationType;
 
-    void test_contains(Shape *s1, Shape *s2, G3Xhmat mat2, bool b);
-
+    void set_operation(Shape *s1, Shape *s2, G3Xhmat mat2, bool b);
     bool contains_aux(G3Xhmat mat, Shape *shape, const Point &p) const;
 };
 
