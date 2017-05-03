@@ -2,6 +2,10 @@
 #include <iostream>
 #include <math.h>
 
+static bool negateIfTest(bool test, bool b) {
+    return (test) ? -b : b;
+}
+
 void OperationShape::set_operation(Shape *s1, Shape *s2, G3Xhmat mat2, bool negation) {
     G3Xhmat tmp;
     CanonicShape *cshape;
@@ -18,7 +22,8 @@ void OperationShape::set_operation(Shape *s1, Shape *s2, G3Xhmat mat2, bool nega
             g3x_ProdHMatPoint(tmp, origin, scaled);
 
             points[i]->set_visibility(
-                    points[i]->is_visible() && !negation && s1->contains(Point(scaled[0], scaled[1], scaled[2])));
+                    points[i]->is_visible() &&
+                    negateIfTest(!negation, s1->contains(Point(scaled[0], scaled[1], scaled[2]))));
         }
     } else if (tshape = dynamic_cast<TransformationShape *>(s2)) {
         set_operation(s1, tshape->origin_shape(), mat2, negation);
