@@ -21,6 +21,10 @@ public:
     void apply_transformation() const;
 
 private:
+    void make_matrix(G3Xhmat mat) const;
+
+    void make_inv_matrix(G3Xhmat mat) const;
+
     void apply_transformation_init() const;
 
     void apply_itransformation_init(G3Xhmat mat) const;

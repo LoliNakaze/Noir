@@ -21,12 +21,13 @@ public:
 
     std::vector<Point *> get_points() const;
 
+    std::vector<Point *> get_canonic_points() const;
+
 private:
     Shape *shape1;
     Shape *shape2;
     OperationType operationType;
 
-    void set_operation(Shape *s1, Shape *s2, G3Xhmat mat2, bool b);
     bool contains_aux(G3Xhmat mat, Shape *shape, const Point &p) const;
 };
 

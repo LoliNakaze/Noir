@@ -28,7 +28,25 @@ public:
     }
 
     std::vector<Point *> get_points() const {
-        return origin_shape()->get_points();
+        Shape *origin = origin_shape();
+        std::vector<Point *> points = tr_shape->get_points();
+        std::vector<Point *> res = std::vector<Point *>(points.size());
+        G3Xhmat mat;
+        make_inv_matrix(mat);
+
+        for (int i = 0; i < points.size(); i++) {
+            G3Xpoint tmp = {points[i]->get_x(), points[i]->get_y(), points[i]->get_z()};
+            G3Xpoint scaled = {0, 0, 0};
+            g3x_ProdHMatPoint(mat, tmp, scaled);
+
+            res[i] = new Point(scaled[0], scaled[1], scaled[2]);
+        }
+
+        return res;
+    }
+
+    std::vector<Point*> get_canonic_points() const {
+        return tr_shape->get_canonic_points();
     }
 
     void draw() const {
@@ -48,6 +66,10 @@ public:
 
 protected:
     Shape *tr_shape;
+
+    virtual void make_matrix(G3Xhmat mat) const = 0;
+
+    virtual void make_inv_matrix(G3Xhmat mat) const = 0;
 };
 
 

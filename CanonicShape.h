@@ -21,6 +21,10 @@ public:
         return pts;
     }
 
+    std::vector<Point*> get_canonic_points() const {
+        return pts;
+    }
+
     void draw() const {
         int i;
 

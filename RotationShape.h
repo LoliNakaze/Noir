@@ -24,6 +24,10 @@ public:
 
     void apply_itransformation() const;
 private:
+    void make_matrix(G3Xhmat mat) const;
+
+    void make_inv_matrix(G3Xhmat mat) const;
+
     double r_angle;
     Vector r_vector;
 };

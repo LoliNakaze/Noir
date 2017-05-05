@@ -85,14 +85,26 @@ void RotationShape::apply_itransformation() const {
 
 bool RotationShape::contains(const Point &p) const {
     G3Xhmat mat;
+    make_inv_matrix(mat);
+
+    G3Xpoint point = {p.get_x(), p.get_y(), p.get_z()};
+    G3Xpoint res = {0, 0, 0};
+    g3x_ProdHMatPoint(mat, point, res);
+
+    return tr_shape->contains(Point(res[0], res[1], res[2]));
+}
+
+void RotationShape::make_matrix(G3Xhmat mat) const {
+    g3x_MakeIdentity(mat);
+
+    if (r_vector.get_x()) g3x_MakeRotationX(mat, r_angle);
+    if (r_vector.get_y()) g3x_MakeRotationY(mat, r_angle);
+    if (r_vector.get_z()) g3x_MakeRotationZ(mat, r_angle);
+}
+
+void RotationShape::make_inv_matrix(G3Xhmat mat) const {
     g3x_MakeIdentity(mat);
     if (r_vector.get_x()) g3x_MakeRotationX(mat, -r_angle);
     if (r_vector.get_y()) g3x_MakeRotationY(mat, -r_angle);
     if (r_vector.get_z()) g3x_MakeRotationZ(mat, -r_angle);
-
-    G3Xpoint point = {p.get_x(), p.get_y(), p.get_z()};
-    G3Xpoint res = {0,0,0};
-    g3x_ProdHMatPoint(mat, point, res);
-
-    return tr_shape->contains(Point(res[0], res[1], res[2]));
 }

@@ -8,9 +8,9 @@
 #include <g3x.h>
 #include "TransformationShape.h"
 
-class ScaleShape : public TransformationShape{
+class ScaleShape : public TransformationShape {
 public:
-    ScaleShape(const Vector scale, Shape* shape);
+    ScaleShape(const Vector scale, Shape *shape);
 
     ~ScaleShape();
 
@@ -23,7 +23,12 @@ public:
 private:
     const Vector tr_vector;
 
+    void make_matrix(G3Xhmat mat) const;
+
+    void make_inv_matrix(G3Xhmat mat) const;
+
     void apply_transformation_init() const;
+
     void apply_itransformation_init(G3Xhmat mat) const;
 };
 

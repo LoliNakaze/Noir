@@ -2,64 +2,52 @@
 #include <iostream>
 #include <math.h>
 
-static bool negateIfTest(bool test, bool b) {
-    return (test) ? -b : b;
-}
-
-void OperationShape::set_operation(Shape *s1, Shape *s2, G3Xhmat mat2, bool negation) {
-    G3Xhmat tmp;
-    CanonicShape *cshape;
-    TransformationShape *tshape;
-    OperationShape *oshape;
-
-    if (cshape = dynamic_cast<CanonicShape *>(s2)) {
-        std::vector<Point *> points = cshape->get_points();
-        g3x_ProdHMat(mat2, cshape->matrice_transformation, tmp);
-        for (int i = 0; i < points.size(); i++) {
-            G3Xpoint origin = {points[i]->get_x(), points[i]->get_y(), points[i]->get_z()};
-            G3Xpoint scaled = {0, 0, 0};
-
-            g3x_ProdHMatPoint(tmp, origin, scaled);
-
-            points[i]->set_visibility(
-                    points[i]->is_visible() &&
-                    negateIfTest(!negation, s1->contains(Point(scaled[0], scaled[1], scaled[2]))));
-        }
-    } else if (tshape = dynamic_cast<TransformationShape *>(s2)) {
-        set_operation(s1, tshape->origin_shape(), mat2, negation);
-    } else if (oshape = dynamic_cast<OperationShape *>(s2)) {
-        g3x_ProdHMat(mat2, oshape->matrice_transformation, tmp);
-        set_operation(s1, oshape->shape1, tmp, negation);
-        set_operation(s1, oshape->shape2, tmp, negation);
-    }
-}
-
 OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
         : shape1(s1), shape2(s2), operationType(ot) {
-    G3Xhmat mat;
+    std::vector<Point *> s1points = s1->get_points();
+    std::vector<Point *> s2points = s2->get_points();
+    std::vector<Point *> s1points_canonic = s1->get_canonic_points();
+    std::vector<Point *> s2points_canonic = s2->get_canonic_points();
 
     switch (ot) {
         case INTERSECTION:
-            g3x_MakeIdentity(mat);
-            set_operation(s1, s2, mat, true);
+            for (int i = 0; i < s2points.size(); i++) {
+                s2points_canonic[i]->set_visibility(s2points_canonic[i]->is_visible() &&
+                                                    s1->contains(Point(s2points[i]->get_x(), s2points[i]->get_y(),
+                                                                       s2points[i]->get_z())));
+            }
 
-            g3x_MakeIdentity(mat);
-            set_operation(s2, s1, mat, true);
+            for (int i = 0; i < s1points.size(); i++) {
+                s1points_canonic[i]->set_visibility(s1points_canonic[i]->is_visible() &&
+                                                    s2->contains(
+                                                            Point(s1points[i]->get_x(), s1points[i]->get_y(),
+                                                                  s1points[i]->get_z())));
+            }
             break;
         case UNION:
-            g3x_MakeIdentity(mat);
-            set_operation(s1, s2, mat, false);
+            for (int i = 0; i < s2points.size(); i++) {
+                s2points_canonic[i]->set_visibility(s2points_canonic[i]->is_visible() &&
+                                                    !s1->contains(Point(s2points[i]->get_x(), s2points[i]->get_y(),
+                                                                        s2points[i]->get_z())));
+            }
 
-            g3x_MakeIdentity(mat);
-            set_operation(s2, s1, mat, false);
+            for (int i = 0; i < s1points.size(); i++) {
+                s1points_canonic[i]->set_visibility(s1points_canonic[i]->is_visible() &&
+                                                    !s2->contains(
+                                                            Point(s1points[i]->get_x(), s1points[i]->get_y(),
+                                                                  s1points[i]->get_z())));
+            }
             break;
         case SUBTRACTION:
-            g3x_MakeIdentity(mat);
-            set_operation(s2, s1, mat, false);
+            for (int i = 0; i < s1points.size(); i++) {
+                s1points_canonic[i]->set_visibility(s1points_canonic[i]->is_visible() &&
+                                                    !s2->contains(
+                                                            Point(s1points[i]->get_x(), s1points[i]->get_y(),
+                                                                  s1points[i]->get_z())));
+            }
 
-            std::vector<Point *> points2 = s2->get_points();
-            for (int i = 0; i < points2.size(); i++) {
-                points2[i]->set_visibility(false);
+            for (int i = 0; i < s2points.size(); i++) {
+                s2points_canonic[i]->set_visibility(false);
             }
             break;
     }
@@ -121,18 +109,23 @@ void OperationShape::draw() const {
     shape2->draw();
 }
 
-std::vector<Point *> OperationShape::get_points() const {
+static std::vector<Point *> insert(std::vector<Point *> points1, std::vector<Point *> points2) {
     std::vector<Point *> operationPoints;
-    std::vector<Point *> points1 = shape1->get_points();
     int sizePoints1 = points1.size();
-
-    std::vector<Point *> points2 = shape2->get_points();
     int sizePoints2 = points2.size();
 
     operationPoints.insert(operationPoints.end(), &points1[0], &points1[sizePoints1]);
     operationPoints.insert(operationPoints.end(), &points2[0], &points2[sizePoints2]);
 
     return operationPoints;
+}
+
+std::vector<Point *> OperationShape::get_points() const {
+    return insert(shape1->get_points(), shape2->get_points());
+}
+
+std::vector<Point *> OperationShape::get_canonic_points() const {
+    return insert(shape1->get_canonic_points(), shape2->get_canonic_points());
 }
 
 
