@@ -18,7 +18,7 @@
 #include "OperationShape.hpp"
 
 #define NBPOINTS 50000
-#define NBSHAPE 9
+#define NBSHAPE 1
 
 
 std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
@@ -27,18 +27,20 @@ static void Init(void) {
 
 
     // shapes[0] = new TranslationShape(Vector(5, 0, 0), new TranslationShape(Vector(2, 0, 0), new Sphere(NBPOINTS)));
-    shapes[0] = new Sphere(NBPOINTS);
-    shapes[1] = new TranslationShape(Vector(2, 0, 0), new Cylinder(NBPOINTS));
-    shapes[2] = new TranslationShape(Vector(4, 0, 0), new Cube(NBPOINTS));
-    shapes[3] = new TranslationShape(Vector(-2, 0, 0), new Cone(NBPOINTS));
-    shapes[4] = new TranslationShape(Vector(-4, 0, 0), new Tore(NBPOINTS));
-    shapes[5] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-6, 0, 0), new Tore(NBPOINTS))));
+//    shapes[0] = new Sphere(NBPOINTS);
+//    shapes[1] = new TranslationShape(Vector(2, 0, 0), new Cylinder(NBPOINTS));
+//    shapes[2] = new TranslationShape(Vector(4, 0, 0), new Cube(NBPOINTS));
+//    shapes[3] = new TranslationShape(Vector(-2, 0, 0), new Cone(NBPOINTS));
+//    shapes[4] = new TranslationShape(Vector(-4, 0, 0), new Tore(NBPOINTS));
+//    shapes[5] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-6, 0, 0), new Tore(NBPOINTS))));
+//
+//    shapes[6] = new ScaleShape(Vector(2, 2, 2), (new TranslationShape(Vector(0, -6, 0), new Sphere(NBPOINTS))));
+//
+//    shapes[7] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-2, -2, 0), new Cone(NBPOINTS))));
+    shapes[0] = new OperationShape(new ScaleShape(Vector(2, 2, 2), new Sphere(NBPOINTS)),
+                                   new Cube(NBPOINTS),
 
-    shapes[6] = new ScaleShape(Vector(2, 2, 2), (new TranslationShape(Vector(0, -6, 0), new Sphere(NBPOINTS))));
-
-    shapes[7] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-2, -2, 0), new Cone(NBPOINTS))));
-    shapes[8] = new OperationShape(new Cube(NBPOINTS), new Cone(NBPOINTS),
-                                   SUBTRACTION);
+                                   UNION);
 
 //    shapes[0] = new ScaleShape(Vector(4, 4, 4), new RotationShape(45., Vector(0, 1 2, 0), new Tore(NBPOINTS)));
 }

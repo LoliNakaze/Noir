@@ -29,11 +29,11 @@ double Point::get_z() const {
 }
 
 double Point::squared_dist_to(const Point &p) const {
-    double x = px - p.get_x();
-    double y = py - p.get_y();
-    double z = pz - p.get_z();
+    double dx = px - p.get_x();
+    double dy = py - p.get_y();
+    double dz = pz - p.get_z();
 
-    return x * x + y * y + z * z;
+    return dx * dx + dy * dy + dz * dz;
 }
 
 bool Point::is_visible() const {

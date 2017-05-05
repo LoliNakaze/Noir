@@ -28,7 +28,6 @@ public:
     }
 
     std::vector<Point *> get_points() const {
-        Shape *origin = origin_shape();
         std::vector<Point *> points = tr_shape->get_points();
         std::vector<Point *> res = std::vector<Point *>(points.size());
         G3Xhmat mat;
@@ -46,7 +45,7 @@ public:
     }
 
     std::vector<Point*> get_canonic_points() const {
-        return tr_shape->get_canonic_points();
+        return origin_shape()->get_canonic_points();
     }
 
     void draw() const {

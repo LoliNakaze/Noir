@@ -27,8 +27,6 @@ private:
     Shape *shape1;
     Shape *shape2;
     OperationType operationType;
-
-    bool contains_aux(G3Xhmat mat, Shape *shape, const Point &p) const;
 };
 
 #endif
