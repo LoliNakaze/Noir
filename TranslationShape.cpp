@@ -106,4 +106,4 @@ void TranslationShape::make_matrix(G3Xhmat mat) const {
 void TranslationShape::make_inv_matrix(G3Xhmat mat) const {
     g3x_MakeIdentity(mat);
     g3x_MakeTranslationXYZ(mat, -tr_vector.get_x(), -tr_vector.get_y(), -tr_vector.get_z());
-};
+}
