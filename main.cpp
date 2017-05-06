@@ -18,7 +18,7 @@
 #include "OperationShape.hpp"
 
 #define NBPOINTS 50000
-#define NBSHAPE 1
+#define NBSHAPE 3
 
 
 std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
@@ -37,10 +37,12 @@ static void Init(void) {
 //    shapes[6] = new ScaleShape(Vector(2, 2, 2), (new TranslationShape(Vector(0, -6, 0), new Sphere(NBPOINTS))));
 //
 //    shapes[7] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-2, -2, 0), new Cone(NBPOINTS))));
-    shapes[0] = new OperationShape(new ScaleShape(Vector(2, 2, 2), new Sphere(NBPOINTS)),
-                                   new Cube(NBPOINTS),
-
-                                   UNION);
+    shapes[0] = new TranslationShape(Vector(1, 0, 0),
+                                     new OperationShape(new ScaleShape(Vector(1.5, 1.5, 1.5), new Sphere(NBPOINTS)),
+                                                        new Cube(NBPOINTS),
+                                                        SUBTRACTION));
+    shapes[1] = new Sphere(NBPOINTS);
+    shapes[2] = new Cube(NBPOINTS);
 
 //    shapes[0] = new ScaleShape(Vector(4, 4, 4), new RotationShape(45., Vector(0, 1 2, 0), new Tore(NBPOINTS)));
 }
@@ -53,6 +55,7 @@ static void Anim(void) {
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
     for (int i = 0; i < NBSHAPE; i++) {
+        std::cout << shapes[i]->contains(Vector(2, 0, 0)) << std::endl;
         shapes[i]->draw();
     }
 }

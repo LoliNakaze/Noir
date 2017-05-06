@@ -31,7 +31,7 @@ public:
         std::vector<Point *> points = tr_shape->get_points();
         std::vector<Point *> res = std::vector<Point *>(points.size());
         G3Xhmat mat;
-        make_inv_matrix(mat);
+        make_matrix(mat);
 
         for (int i = 0; i < points.size(); i++) {
             G3Xpoint tmp = {points[i]->get_x(), points[i]->get_y(), points[i]->get_z()};

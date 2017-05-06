@@ -13,8 +13,9 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
         case INTERSECTION:
             for (int i = 0; i < s2points.size(); i++) {
                 s2points_canonic[i]->set_visibility(s2points_canonic[i]->is_visible() &&
-                                                    s1->contains(Point(s2points[i]->get_x(), s2points[i]->get_y(),
-                                                                       s2points[i]->get_z())));
+                                                    s1->contains(
+                                                            Point(s2points[i]->get_x(), s2points[i]->get_y(),
+                                                                  s2points[i]->get_z())));
             }
 
             for (int i = 0; i < s1points.size(); i++) {
@@ -27,8 +28,9 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
         case UNION:
             for (int i = 0; i < s2points.size(); i++) {
                 s2points_canonic[i]->set_visibility(s2points_canonic[i]->is_visible() &&
-                                                    !s1->contains(Point(s2points[i]->get_x(), s2points[i]->get_y(),
-                                                                        s2points[i]->get_z())));
+                                                    !s1->contains(
+                                                            Point(s2points[i]->get_x(), s2points[i]->get_y(),
+                                                                  s2points[i]->get_z())));
             }
 
             for (int i = 0; i < s1points.size(); i++) {
