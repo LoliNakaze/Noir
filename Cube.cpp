@@ -2,9 +2,10 @@
 #include <iostream>
 #include <math.h>
 
-Cube::Cube(int n) {
+Cube::Cube(int n, Vector color) {
     int i;
     nbpoints = n;
+    shape_color = color;
 
     initShape();
 

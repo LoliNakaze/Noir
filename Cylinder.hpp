@@ -7,7 +7,7 @@
 
 class Cylinder : public CanonicShape {
 public:
-    Cylinder(int n); /* Constructeur */
+    Cylinder(int n, Vector color); /* Constructeur */
     ~Cylinder(); /* Destructeur */
 
 	bool contains(const Point& p) const;

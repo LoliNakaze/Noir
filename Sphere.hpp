@@ -7,7 +7,7 @@
 
 class Sphere : public CanonicShape {
 public:
-    Sphere(int n); /* Constructeur */
+    Sphere(int n, Vector color); /* Constructeur */
     ~Sphere(); /* Destructeur */
     bool contains(const Point& p) const;
 };

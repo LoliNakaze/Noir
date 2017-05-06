@@ -6,7 +6,7 @@
 
 class Cube : public CanonicShape {
 public:
-    Cube(int n); /* Constructeur */
+    Cube(int n, Vector color); /* Constructeur */
     ~Cube(); /* Destructeur */
 
     bool contains(const Point &p) const;

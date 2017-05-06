@@ -8,7 +8,7 @@
 class Cone : public CanonicShape {
 public:
 
-    Cone(int n); /* Constructeur */
+    Cone(int n, Vector color); /* Constructeur */
     ~Cone(); /* Destructeur */
 
 	bool contains(const Point& p) const;

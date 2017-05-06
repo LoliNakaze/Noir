@@ -1,8 +1,9 @@
 #include "Cylinder.hpp"
 
-Cylinder::Cylinder(int n) {
+Cylinder::Cylinder(int n, Vector color) {
     int i;
     nbpoints = n;
+    shape_color = color;
 
     initShape();
 

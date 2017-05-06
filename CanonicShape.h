@@ -12,7 +12,7 @@
 
 class CanonicShape : public Shape {
 public:
-    CanonicShape() {}
+    CanonicShape() : shape_color(Vector(255, 255, 255)) {};
 
     virtual ~CanonicShape() {};
 
@@ -35,7 +35,8 @@ public:
     void draw() const {
         int i;
 
-        float color[] = {1.0, 0.0, 0.0};
+        float color[] = {(float) (shape_color.get_x() / 255), (float) (shape_color.get_y() / 255),
+                         (float) (shape_color.get_z() / 255)};
         g3x_Material(color, .25, .25, .25, .25, .25);
 
         glBegin(GL_POINTS);
@@ -56,9 +57,7 @@ protected:
     int nbpoints;
     std::vector<Vector *> pts;
     std::vector<Normal *> nor;
-
-private:
-
+    Vector shape_color;
 };
 
 

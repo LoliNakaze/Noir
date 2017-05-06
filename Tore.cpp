@@ -26,10 +26,11 @@ bool Tore::contains(const Point &p) const {
 Tore::~Tore() {
 }
 
-Tore::Tore(int n) {
+Tore::Tore(int n, Vector color) {
     int i;
     initShape();
     nbpoints = n;
+    shape_color = color;
 
     double r1, r2;
     pts = std::vector<Vector *>(n);

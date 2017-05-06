@@ -11,7 +11,7 @@
 
 class Tore : public CanonicShape {
 public:
-    Tore(int n); /* Constructeur */
+    Tore(int n, Vector color); /* Constructeur */
     ~Tore(); /* Destructeur */
 
     bool contains(const Point &p) const;

@@ -1,8 +1,9 @@
 #include "Sphere.hpp"
 
-Sphere::Sphere(int n) {
+Sphere::Sphere(int n, Vector color) {
     int i;
     nbpoints = n;
+    shape_color = color;
 
     initShape();
 
