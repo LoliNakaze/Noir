@@ -28,6 +28,8 @@ public:
 
     Point toPoint() const;
 
+    void negative();
+
 private:
     double px;
     double py;

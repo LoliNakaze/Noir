@@ -24,6 +24,7 @@ public:
     virtual std::vector<Point *> get_canonic_points() const = 0;
 
     virtual void draw() const = 0;
+    virtual void negative() const = 0;
 
     G3Xhmat matrice_transformation;
     G3Xhmat matrice_transformation_inverse;

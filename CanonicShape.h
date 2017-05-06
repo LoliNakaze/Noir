@@ -7,6 +7,7 @@
 
 #include <g3x.h>
 #include <vector>
+#include <iostream>
 #include "Shape.hpp"
 
 class CanonicShape : public Shape {
@@ -21,8 +22,14 @@ public:
         return pts;
     }
 
-    std::vector<Point*> get_canonic_points() const {
+    std::vector<Point *> get_canonic_points() const {
         return pts;
+    }
+
+    void negative() const {
+        for (int i = 0; i < nbpoints; i++) {
+            nor[i]->negative();
+        }
     }
 
     void draw() const {
@@ -49,6 +56,9 @@ protected:
     int nbpoints;
     std::vector<Vector *> pts;
     std::vector<Normal *> nor;
+
+private:
+
 };
 
 

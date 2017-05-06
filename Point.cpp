@@ -44,6 +44,12 @@ void Point::set_visibility(bool b) {
     visibility = b;
 }
 
+void Point::negative() {
+    px = -px;
+    py = -py;
+    pz = -pz;
+}
+
 Point Point::toPoint() const {
     return Point(px, py, pz);
 }

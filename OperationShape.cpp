@@ -39,13 +39,20 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
             }
 
             for (int i = 0; i < s2points.size(); i++) {
-                s2points_canonic[i]->set_visibility(false);
+                s2points_canonic[i]->set_visibility(s2points_canonic[i]->is_visible() &&
+                                                    s1->contains(s2points[i]->toPoint()));
             }
+            s2->negative();
             break;
     }
 }
 
 OperationShape::~OperationShape() {
+}
+
+void OperationShape::negative() const {
+    shape1->negative();
+    shape2->negative();
 }
 
 bool OperationShape::contains(const Point &p) const {

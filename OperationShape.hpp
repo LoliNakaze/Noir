@@ -17,6 +17,8 @@ public:
 
     bool contains(const Point &p) const;
 
+    void negative() const;
+
     void draw() const;
 
     std::vector<Point *> get_points() const;

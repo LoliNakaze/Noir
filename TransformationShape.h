@@ -17,6 +17,10 @@ public:
     virtual ~TransformationShape() {
     }
 
+    void negative() const {
+        tr_shape->negative();
+    }
+
     bool contains(const Point &p) const {
         G3Xhmat mat;
         make_inv_matrix(mat);

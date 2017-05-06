@@ -9,9 +9,13 @@
 
 bool Tore::contains(const Point &p) const {
     double length = sqrt(p.squared_norm());
-    double a = atan2(p.get_y(), p.get_x());
-    double b = cos(p.get_z() / length);
+    double x = p.get_x();
+    double y = p.get_y();
+    double z = p.get_z();
+    double a = atan2(z, sqrt(x*x + y*y));
+    double b = -atan2(x, y);
 
+    std::cout << z << " / " << length << std::endl;
     std::cout << a << " " << b << std::endl;
 
     double d = p.squared_dist_to(Point(cos(a) * sin(b), sin(a) * sin(b), cos(b)));
