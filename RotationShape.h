@@ -14,8 +14,6 @@ public:
 
     ~RotationShape();
 
-    bool contains(const Point &p) const;
-
     void apply_itransformation_init(G3Xhmat mat) const;
 
     void apply_transformation() const;

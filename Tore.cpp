@@ -10,7 +10,7 @@
 bool Tore::contains(const Point &p) const {
     double length = sqrt(p.squared_norm());
     double a = atan2(p.get_y(), p.get_x());
-    double b = acos(p.get_z() / length);
+    double b = cos(p.get_z() / length);
 
     std::cout << a << " " << b << std::endl;
 

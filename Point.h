@@ -26,6 +26,8 @@ public:
 
     double get_z() const;
 
+    Point toPoint() const;
+
 private:
     double px;
     double py;

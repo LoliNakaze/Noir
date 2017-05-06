@@ -17,7 +17,16 @@ public:
     virtual ~TransformationShape() {
     }
 
-    virtual bool contains(const Point &p) const = 0;
+    bool contains(const Point &p) const {
+        G3Xhmat mat;
+        make_inv_matrix(mat);
+
+        G3Xpoint point = {p.get_x(), p.get_y(), p.get_z()};
+        G3Xpoint res = {0, 0, 0};
+        g3x_ProdHMatPoint(mat, point, res);
+
+        return tr_shape->contains(Point(res[0], res[1], res[2]));
+    };
 
     Shape *origin_shape() const {
         Shape *res = tr_shape;
@@ -44,7 +53,7 @@ public:
         return res;
     }
 
-    std::vector<Point*> get_canonic_points() const {
+    std::vector<Point *> get_canonic_points() const {
         return origin_shape()->get_canonic_points();
     }
 

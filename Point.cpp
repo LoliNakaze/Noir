@@ -43,3 +43,7 @@ bool Point::is_visible() const {
 void Point::set_visibility(bool b) {
     visibility = b;
 }
+
+Point Point::toPoint() const {
+    return Point(px, py, pz);
+}

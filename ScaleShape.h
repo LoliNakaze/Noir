@@ -14,8 +14,6 @@ public:
 
     ~ScaleShape();
 
-    bool contains(const Point &p) const;
-
     void apply_itransformation() const;
 
     void apply_transformation() const;

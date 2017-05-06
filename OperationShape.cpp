@@ -13,39 +13,29 @@ OperationShape::OperationShape(Shape *s1, Shape *s2, OperationType ot)
         case INTERSECTION:
             for (int i = 0; i < s2points.size(); i++) {
                 s2points_canonic[i]->set_visibility(s2points_canonic[i]->is_visible() &&
-                                                    s1->contains(
-                                                            Point(s2points[i]->get_x(), s2points[i]->get_y(),
-                                                                  s2points[i]->get_z())));
+                                                    s1->contains(s2points[i]->toPoint()));
             }
 
             for (int i = 0; i < s1points.size(); i++) {
                 s1points_canonic[i]->set_visibility(s1points_canonic[i]->is_visible() &&
-                                                    s2->contains(
-                                                            Point(s1points[i]->get_x(), s1points[i]->get_y(),
-                                                                  s1points[i]->get_z())));
+                                                    s2->contains(s1points[i]->toPoint()));
             }
             break;
         case UNION:
             for (int i = 0; i < s2points.size(); i++) {
                 s2points_canonic[i]->set_visibility(s2points_canonic[i]->is_visible() &&
-                                                    !s1->contains(
-                                                            Point(s2points[i]->get_x(), s2points[i]->get_y(),
-                                                                  s2points[i]->get_z())));
+                                                    !s1->contains(s2points[i]->toPoint()));
             }
 
             for (int i = 0; i < s1points.size(); i++) {
                 s1points_canonic[i]->set_visibility(s1points_canonic[i]->is_visible() &&
-                                                    !s2->contains(
-                                                            Point(s1points[i]->get_x(), s1points[i]->get_y(),
-                                                                  s1points[i]->get_z())));
+                                                    !s2->contains(s1points[i]->toPoint()));
             }
             break;
         case SUBTRACTION:
             for (int i = 0; i < s1points.size(); i++) {
                 s1points_canonic[i]->set_visibility(s1points_canonic[i]->is_visible() &&
-                                                    !s2->contains(
-                                                            Point(s1points[i]->get_x(), s1points[i]->get_y(),
-                                                                  s1points[i]->get_z())));
+                                                    !s2->contains(s1points[i]->toPoint()));
             }
 
             for (int i = 0; i < s2points.size(); i++) {

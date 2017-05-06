@@ -16,8 +16,6 @@ public:
 
     void apply_itransformation() const;
 
-    bool contains(const Point &p) const;
-
     void apply_transformation() const;
 
 private:
