@@ -6,6 +6,8 @@
 
 #include <g3x.h>
 #include <cstdio>
+#include <stdio.h>
+#include <iostream>
 #include "Shape.hpp"
 #include "Sphere.hpp"
 #include "Cone.hpp"
@@ -17,13 +19,52 @@
 #include "RotationShape.h"
 #include "OperationShape.hpp"
 
-#define NBPOINTS 50000
+#define NBPOINTS 100000
 #define NBSHAPE 1
+
+int sceneNumber = 1;
 
 
 std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
+    switch (sceneNumber){
+        case 1:
+            shapes[0] =
+                    new RotationShape(45.0, Vector(1, 0, 0), new OperationShape(
+                            new OperationShape(
+                                    new OperationShape(new TranslationShape(Vector(15, 10, -1),
+                                                                            new ScaleShape(Vector(0.1, 0.1, 0.8),
+                                                                                           new Cube(NBPOINTS))),
+                                                       new TranslationShape(Vector(15, -10, -1),
+                                                                            new ScaleShape(Vector(0.1, 0.1, 0.8),
+                                                                                           new Cube(NBPOINTS))), UNION),
+                                    new OperationShape(new TranslationShape(Vector(-15, -10, -1),
+                                                                            new ScaleShape(Vector(0.1, 0.1, 0.8),
+                                                                                           new Cube(NBPOINTS))),
+                                                       new TranslationShape(Vector(-15, 10, -1),
+                                                                            new ScaleShape(Vector(0.1, 0.1, 0.8),
+                                                                                           new Cube(NBPOINTS))), UNION),
+                                    UNION),
+                            new OperationShape(new ScaleShape(Vector(2, 1.5, 0.1), new Cube(NBPOINTS)),
+                                               new TranslationShape(Vector(0, 0, 2),
+                                                                    new ScaleShape(Vector(0.1, 0.1, 0.1),
+                                                                                   new Sphere(NBPOINTS))),
+                                               UNION), UNION));
+            break;
+        case 2:
+            shapes[0] = new Cone(NBPOINTS);
+
+            break;
+        case 3:
+            shapes[0] = new Cube(NBPOINTS);
+
+            break;
+        default:
+            shapes[0] = new Sphere(NBPOINTS);
+            break;
+
+    }
 
 
     // shapes[0] = new TranslationShape(Vector(5, 0, 0), new TranslationShape(Vector(2, 0, 0), new Sphere(NBPOINTS)));
@@ -37,27 +78,7 @@ static void Init(void) {
 //    shapes[6] = new ScaleShape(Vector(2, 2, 2), (new TranslationShape(Vector(0, -6, 0), new Sphere(NBPOINTS))));
 //
 //    shapes[7] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-2, -2, 0), new Cone(NBPOINTS))));
-    shapes[0] =
-            new RotationShape(45.0, Vector(1, 0, 0), new OperationShape(
-                    new OperationShape(
-                            new OperationShape(new TranslationShape(Vector(15, 10, -1),
-                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-                                                                                   new Cube(NBPOINTS))),
-                                               new TranslationShape(Vector(15, -10, -1),
-                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-                                                                                   new Cube(NBPOINTS))), UNION),
-                            new OperationShape(new TranslationShape(Vector(-15, -10, -1),
-                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-                                                                                   new Cube(NBPOINTS))),
-                                               new TranslationShape(Vector(-15, 10, -1),
-                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-                                                                                   new Cube(NBPOINTS))), UNION),
-                            UNION),
-                    new OperationShape(new ScaleShape(Vector(2, 1.5, 0.1), new Cube(NBPOINTS)),
-                                       new TranslationShape(Vector(0, 0, 2),
-                                                            new ScaleShape(Vector(0.1, 0.1, 0.1),
-                                                                           new Sphere(NBPOINTS))),
-                                       UNION), UNION));
+
 //    shapes[1] = new Sphere(NBPOINTS);
 //    shapes[2] = new Cube(NBPOINTS);
 
@@ -72,7 +93,7 @@ static void Anim(void) {
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
     for (int i = 0; i < NBSHAPE; i++) {
-        std::cout << shapes[i]->contains(Vector(2, 0, 0)) << std::endl;
+//        std::cout << shapes[i]->contains(Vector(2, 0, 0)) << std::endl;
         shapes[i]->draw();
     }
 }
@@ -88,8 +109,19 @@ static void Exit(void) {
     fprintf(stderr, "\nbye !\n");
 }
 
+static void usage(){
+    printf("USAGE: ./project  SCENENUMBER\n");
+}
 
 int main(int argc, char **argv) {
+    if (argc != 2){
+        usage();
+        return 0;
+    }
+    sceneNumber = atoi(argv[1]);
+
+//    std::cout << argc << std::endl;
+
     /* initialisation de la fenêtre graphique et paramétrage Gl */
     g3x_InitWindow(*argv, 768, 512);
 
