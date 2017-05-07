@@ -26,7 +26,7 @@ int sceneNumber = 1;
 int nbShape = 1;
 
 
-std::vector<Shape *> shapes = std::vector<Shape *>(nbShape);
+std::vector<Shape *> shapes = std::vector<Shape *>(5);
 
 static void Init(void) {
     Shape *init1;
@@ -124,6 +124,22 @@ static void Init(void) {
             shapes[1] = aile1;
             shapes[2] = aile2;
             shapes[3] = lien;
+            break;
+        case 4:
+            nbShape = 5;
+
+            shapes[0] = new Sphere(NBPOINTS, Vector(255, 0, 0));
+            shapes[1] = new TranslationShape(Vector(2, 2, 0), new Cube(NBPOINTS, Vector(0, 255, 0)));
+            shapes[2] = new TranslationShape(Vector(2, -2, 0), new Cylinder(NBPOINTS, Vector(0, 0, 255)));
+            shapes[3] = new TranslationShape(Vector(-2, 2, 0), new Cone(NBPOINTS, Vector(0, 255, 255)));
+            shapes[4] = new TranslationShape(Vector(-2, -2, 0), new Tore(NBPOINTS, Vector(255, 255, 0)));
+            break;
+        case 5:
+            init1 = new ScaleShape(Vector(0.3, 0.3, 0.3), new Sphere(NBPOINTS / 2, Vector(0, 0, 0)));
+
+            shapes[0] = new OperationShape(new Cube(NBPOINTS, Vector(255, 255, 200)),
+                                           new TranslationShape(Vector(1,0,0),init1),
+                                           SUBTRACTION);
             break;
         default:
             shapes[0] = new Sphere(NBPOINTS, Vector(255, 0, 0));
