@@ -29,10 +29,11 @@ std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
 
 static void Init(void) {
     Shape *init1;
+    Shape *ears, *eyes;
     switch (sceneNumber) {
         case 1:
             init1 = new ScaleShape(Vector(0.1, 0.1, 0.8),
-                                          new Cube(NBPOINTS, Vector(255, 255, 0)));
+                                   new Cube(NBPOINTS, Vector(255, 255, 0)));
 
             shapes[0] =
                     new RotationShape(45.0, Vector(1, 0, 0), new OperationShape(
@@ -52,11 +53,56 @@ static void Init(void) {
                                     UNION), UNION));
             break;
         case 2:
-            shapes[0] = new Cone(NBPOINTS, Vector(255, 0, 0));
+            ears = new OperationShape(
+                    new TranslationShape(Vector(0, 0, -0.35), new ScaleShape(Vector(0.37, 0.37, 0.1),
+                                                                             new RotationShape(90, Vector(1, 0, 0),
+                                                                                               new Cylinder(NBPOINTS,
+                                                                                                            Vector(255,
+                                                                                                                   255,
+                                                                                                                   200))))),
+                    new ScaleShape(Vector(0.35, 0.35, 0.1),
+                                   new RotationShape(90, Vector(1, 0, 0), new Cylinder(NBPOINTS, Vector(0, 0, 255)))),
+                    UNION);
 
+            eyes = new ScaleShape(Vector(0.20, 0.1, 0.30), new Sphere(NBPOINTS, Vector(255, 255, 255)));
+            shapes[0] = new OperationShape(
+                    new OperationShape(
+                            new OperationShape(
+                                    new TranslationShape(Vector(0, 0.625, -0.83),
+                                                         new OperationShape(new ScaleShape(Vector(0.8, 0.8, 0.8),
+                                                                                           new Sphere(NBPOINTS,
+                                                                                                      Vector(255,
+                                                                                                             255,
+                                                                                                             200))),
+                                                                            new TranslationShape(Vector(0, 2.5, 0),
+                                                                                                 new ScaleShape(
+                                                                                                         Vector(0.3,
+                                                                                                                0.3,
+                                                                                                                0.3),
+                                                                                                         new Sphere(
+                                                                                                                 NBPOINTS /
+                                                                                                                 2,
+                                                                                                                 Vector(0,
+                                                                                                                        0,
+                                                                                                                        0)))),
+                                                                            UNION)),
+                                    new ScaleShape(Vector(0.8, 0.8, 1.2), new Sphere(NBPOINTS, Vector(0, 0, 255))),
+                                    UNION),
+                            new OperationShape(
+                                    new TranslationShape(Vector(0.8, 0, 1), ears),
+                                    new TranslationShape(Vector(-0.8, 0, 1), ears),
+                                    UNION
+                            ),
+                            UNION),
+                    new OperationShape(
+                            new TranslationShape(Vector(1, 7, 1.2), eyes),
+                            new TranslationShape(Vector(-1, 7, 1.2), eyes),
+                            UNION
+                    ),
+                    UNION);
             break;
         case 3:
-            shapes[0] = new Cube(NBPOINTS, Vector(255, 0, 0));
+
 
             break;
         default:
