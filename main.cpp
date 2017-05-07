@@ -20,17 +20,26 @@
 #include "OperationShape.hpp"
 
 #define NBPOINTS 100000
-#define NBSHAPE 1
+
 
 int sceneNumber = 1;
+int nbShape = 1;
 
 
-std::vector<Shape *> shapes = std::vector<Shape *>(NBSHAPE);
+std::vector<Shape *> shapes = std::vector<Shape *>(nbShape);
 
 static void Init(void) {
     Shape *init1;
+    Shape* aile1;
+    Shape* aile2;
+    Shape* lien;
+    Shape* ailes;
+    Shape* centre;
+
+    Shape* cockpit;
     switch (sceneNumber) {
         case 1:
+            nbShape = 1;
             init1 = new ScaleShape(Vector(0.1, 0.1, 0.8),
                                           new Cube(NBPOINTS, Vector(255, 255, 0)));
 
@@ -56,8 +65,17 @@ static void Init(void) {
 
             break;
         case 3:
-            shapes[0] = new Cube(NBPOINTS, Vector(255, 0, 0));
+            nbShape = 4;
 
+            aile1 = new ScaleShape(Vector(0.01,1,1), new TranslationShape(Vector(0.75,0,0), new Cube(NBPOINTS, Vector(255, 0, 0))) );
+            aile2 = new ScaleShape(Vector(0.01,1,1), new TranslationShape(Vector(-0.75,0,0), new Cube(NBPOINTS, Vector(255, 0, 0))) );
+            cockpit = new ScaleShape(Vector(0.3,0.3,0.3),new Sphere(NBPOINTS, Vector(255, 0, 0))) ;
+            lien = new ScaleShape(Vector(0.05,0.05,0.75), new RotationShape(90.0, Vector(0,1,0),new Cylinder(NBPOINTS, Vector(0,255,0)))) ;
+
+            shapes[0] = cockpit;
+            shapes[1] = aile1;
+            shapes[2] = aile2;
+            shapes[3] = lien;
             break;
         default:
             shapes[0] = new Sphere(NBPOINTS, Vector(255, 0, 0));
@@ -66,47 +84,7 @@ static void Init(void) {
     }
 
 
-    // shapes[0] = new TranslationShape(Vector(5, 0, 0), new TranslationShape(Vector(2, 0, 0), new Sphere(NBPOINTS)));
-//    shapes[0] = new Sphere(NBPOINTS);
-//    shapes[1] = new TranslationShape(Vector(2, 0, 0), new Cylinder(NBPOINTS));
-//    shapes[2] = new TranslationShape(Vector(4, 0, 0), new Cube(NBPOINTS));
-//    shapes[3] = new TranslationShape(Vector(-2, 0, 0), new Cone(NBPOINTS));
-//    shapes[4] = new TranslationShape(Vector(-4, 0, 0), new Tore(NBPOINTS));
-//    shapes[5] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-6, 0, 0), new Tore(NBPOINTS))));
-//
-//    shapes[6] = new ScaleShape(Vector(2, 2, 2), (new TranslationShape(Vector(0, -6, 0), new Sphere(NBPOINTS))));
-//
-//    shapes[7] = new RotationShape(45.0, Vector(2, 0, 0), (new TranslationShape(Vector(-2, -2, 0), new Cone(NBPOINTS))));
-//    shapes[0] =
-//            new RotationShape(45.0, Vector(1, 0, 0), new OperationShape(
-//                    new OperationShape(
-//                            new OperationShape(new TranslationShape(Vector(15, 10, -1),
-//                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-//                                                                                   new Cube(NBPOINTS))),
-//                                               new TranslationShape(Vector(15, -10, -1),
-//                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-//                                                                                   new Cube(NBPOINTS))), UNION),
-//                            new OperationShape(new TranslationShape(Vector(-15, -10, -1),
-//                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-//                                                                                   new Cube(NBPOINTS))),
-//                                               new TranslationShape(Vector(-15, 10, -1),
-//                                                                    new ScaleShape(Vector(0.1, 0.1, 0.8),
-//                                                                                   new Cube(NBPOINTS))), UNION),
-//                            UNION),
-//                    new OperationShape(new ScaleShape(Vector(2, 1.5, 0.1), new Cube(NBPOINTS)),
-//                                       new TranslationShape(Vector(0, 0, 2),
-//                                                            new ScaleShape(Vector(0.1, 0.1, 0.1),
-//                                                                           new Sphere(NBPOINTS))),
-//                                       UNION), UNION));
-//    Shape *shape = new OperationShape(new ScaleShape(Vector(1, 1, 0.1), new Cylinder(NBPOINTS)),
-//                                      new ScaleShape(Vector(0.9, 0.9, 0.9), new Cone(NBPOINTS)), UNION);
-//    shapes[0] = new OperationShape(shape, new TranslationShape(Vector(0, 0, -3),
-//                new RotationShape(180, Vector(1, 0, 0), shape)), UNION);
-//    shapes[0] = new OperationShape(new Cube(NBPOINTS), new ScaleShape(Vector(1.5, 1.5, 1.5), new Sphere(NBPOINTS)),
-//                                   SUBTRACTION);
-//    shapes[2] = new Cube(NBPOINTS);
 
-//    shapes[0] = new ScaleShape(Vector(4, 4, 4), new RotationShape(45., Vector(0, 1 2, 0), new Tore(NBPOINTS)));
 }
 
 /*= FONCTION D'ANIMATION =*/
@@ -116,7 +94,7 @@ static void Anim(void) {
 
 /*= FONCTION DE DESSIN PRINCIPALE =*/
 static void Draw(void) {
-    for (int i = 0; i < NBSHAPE; i++) {
+    for (int i = 0; i < nbShape; i++) {
 //        std::cout << shapes[i]->contains(Vector(2, 0, 0)) << std::endl;
         shapes[i]->draw();
     }
