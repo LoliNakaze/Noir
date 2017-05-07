@@ -138,7 +138,7 @@ static void Init(void) {
             nbShape = 3;
             shapes[0] = new OperationShape(
                     new Sphere(NBPOINTS, Vector(255, 255, 200)),
-                    new TranslationShape(Vector(0.3, 0, 0), new Sphere(NBPOINTS, Vector(0, 0, 0))),
+                    new TranslationShape(Vector(0.3, 0, 0), new Sphere(NBPOINTS, Vector(255, 255, 0))),
                     SUBTRACTION
             );
 
@@ -152,7 +152,7 @@ static void Init(void) {
                                              new OperationShape(
                                                      new Cube(NBPOINTS, Vector(255, 255, 255)),
                                                      new ScaleShape(Vector(1.2, 1.2, 1.2),
-                                                                    new Sphere(NBPOINTS, Vector(0, 0, 0))),
+                                                                    new Sphere(NBPOINTS, Vector(255, 0, 0))),
                                                      UNION
                                              )
             );
