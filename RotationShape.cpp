@@ -93,7 +93,7 @@ void RotationShape::make_matrix(G3Xhmat mat) const {
 
 void RotationShape::make_inv_matrix(G3Xhmat mat) const {
     g3x_MakeIdentity(mat);
-    if (r_vector.get_x()) g3x_MakeRotationX(mat, -r_angle);
-    if (r_vector.get_y()) g3x_MakeRotationY(mat, -r_angle);
     if (r_vector.get_z()) g3x_MakeRotationZ(mat, -r_angle);
+    if (r_vector.get_y()) g3x_MakeRotationY(mat, -r_angle);
+    if (r_vector.get_x()) g3x_MakeRotationX(mat, -r_angle);
 }

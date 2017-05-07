@@ -135,11 +135,27 @@ static void Init(void) {
             shapes[4] = new TranslationShape(Vector(-2, -2, 0), new Tore(NBPOINTS, Vector(255, 255, 0)));
             break;
         case 5:
-            init1 = new ScaleShape(Vector(0.3, 0.3, 0.3), new Sphere(NBPOINTS / 2, Vector(0, 0, 0)));
+            nbShape = 3;
+            shapes[0] = new OperationShape(
+                    new Sphere(NBPOINTS, Vector(255, 255, 200)),
+                    new TranslationShape(Vector(0.3, 0, 0), new Sphere(NBPOINTS, Vector(0, 0, 0))),
+                    SUBTRACTION
+            );
 
-            shapes[0] = new OperationShape(new Cube(NBPOINTS, Vector(255, 255, 200)),
-                                           new TranslationShape(Vector(1,0,0),init1),
-                                           SUBTRACTION);
+            shapes[1] = new TranslationShape(Vector(2, 2, 0),
+                                             new OperationShape(
+                                                     new Sphere(NBPOINTS, Vector(255, 0, 255)),
+                                                     new Cone(NBPOINTS, Vector(255, 0, 255)),
+                                                     INTERSECTION
+                                             ));
+            shapes[2] = new TranslationShape(Vector(2, -2, 0),
+                                             new OperationShape(
+                                                     new Cube(NBPOINTS, Vector(255, 255, 255)),
+                                                     new ScaleShape(Vector(1.2, 1.2, 1.2),
+                                                                    new Sphere(NBPOINTS, Vector(0, 0, 0))),
+                                                     UNION
+                                             )
+            );
             break;
         default:
             shapes[0] = new Sphere(NBPOINTS, Vector(255, 0, 0));
